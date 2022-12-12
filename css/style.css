@@ -1,0 +1,436 @@
+/* Google font Poppins
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap'); */
+
+:root {
+  --primary-color: #3873ec;
+  --border-bottom-solid: 4px var(--primary-color) solid;
+}
+
+/*========== Custom Local Fonts ==========*/
+@font-face {
+  font-family: 'Poppins';
+  font-weight: 400;
+  src: url('../images/fonts/Poppins-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-weight: 500;
+  src: url('../images/fonts/Poppins-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-weight: bold;
+  src: url('../images/fonts/Poppins-Bold.ttf');
+}
+
+/* Reset properties */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins';
+  color: #333;
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+nav ul li {
+  list-style: none;
+}
+
+h1,
+h2 {
+  font-weight: 300;
+  line-height: 1.2;
+  margin: 10px 0;
+}
+
+p {
+  margin: 10px 0;
+}
+
+span {
+  padding: 0;
+  margin: 0;
+}
+
+/* img {
+    width: 100%;
+} */
+
+/*========== Utilities ==========*/
+.container {
+  width: 80%;
+  margin: auto;
+  overflow: auto;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.current {
+  border-bottom: var(--border-bottom-solid);
+}
+
+.icon-container {
+  display: flex;
+
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  border-left: 5px var(--primary-color) solid;
+  padding-left: 10px;
+  font-size: 30px;
+  transition: 0.3s ease;
+}
+
+.logo:hover {
+  color: var(--primary-color);
+}
+
+#icon {
+  margin-left: 5px;
+  height: 50px;
+  width: auto;
+}
+
+
+/*========== Navbar ==========*/
+.navbar {
+  background-color: #fff;
+  height: 80px;
+  box-shadow: 0 2.8px 10px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  width: 100%;
+  top: 0;
+}
+
+.navbar ul {
+  display: flex;
+}
+
+.navbar ul li a {
+  padding: 10px;
+  margin: 0 5px;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 1px;
+  transition: 0.2s ease;
+}
+
+.navbar ul li a:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgb(56, 115, 236, 0.2);
+  border-bottom: none;
+}
+
+.navbar .flex {
+  justify-content: space-between;
+}
+
+.grid-homepage {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  margin-top: 4rem;
+}
+
+.introduction {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-items: flex-start;
+  align-items: center;
+}
+
+.introduction h1 {
+  font-size: 100px;
+  font-weight: 500;
+  margin-top: 2em;
+}
+
+.introduction #ivan {
+  color: var(--primary-color);
+  padding: 0 10px;
+  border-radius: 40px;
+  transition: 0.3s ease;
+}
+
+.introduction #ivan:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+  box-shadow: 4px 4px 10px rgb(56, 115, 236, 0.5);
+}
+
+/* My Image */
+.model {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.model img {
+  height: 90vh;
+}
+
+/* ========== About Me page ==========*/
+.grid-about-me {
+  margin-top: 6em;
+}
+
+.about-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3em;
+}
+
+.about-header h1 {
+  text-align: center;
+  font-size: 45px;
+  font-weight: 500;
+  border-bottom: var(--border-bottom-solid);
+  transition: 0.3s ease;
+}
+
+.about-header h1:hover {
+  color: var(--primary-color);
+  border-bottom: 4px #fff solid;
+}
+
+.about {
+  margin-top: 3em;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: center;
+  align-items: center;
+}
+
+.about .my-image {
+  text-align: center;
+}
+
+.about .my-image img {
+  height: 300px;
+}
+
+.about-me {
+  padding: 20px;
+  line-height: 30px;
+}
+
+.about .about-me h1 {
+  font-size: 45px;
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
+.about .about-me span {
+  font-size: 20px;
+}
+
+.about-me p {
+  width: 80%;
+}
+
+.about-me .about-me-social-media ul {
+  list-style: none;
+}
+
+.about-me .about-me-social-media li {
+  display: inline;
+  margin-right: 30px;
+}
+
+/* to change the svg icon color using the filter.
+    to converting hex to filter value, open the link
+    https://codepen.io/sosuke/pen/Pjoqqp
+*/
+.about-me .about-me-social-media .icon {
+  height: 30px;
+  filter: invert(16%) sepia(10%) saturate(10%) hue-rotate(7deg) brightness(106%)
+    contrast(91%);
+    z-index: -0;
+}
+
+.about-me .about-me-social-media .facebook:hover {
+  filter: invert(40%) sepia(40%) saturate(5411%) hue-rotate(201deg)
+    brightness(96%) contrast(98%);
+}
+
+.about-me .about-me-social-media .twitter:hover {
+  filter: invert(47%) sepia(83%) saturate(1309%) hue-rotate(176deg)
+    brightness(97%) contrast(95%);
+}
+
+.about-me .about-me-social-media .instagram:hover {
+  filter: invert(55%) sepia(78%) saturate(7486%) hue-rotate(292deg)
+    brightness(81%) contrast(92%);
+}
+
+.about-me .about-me-social-media .behance:hover {
+  filter: invert(41%) sepia(85%) saturate(1070%) hue-rotate(199deg)
+    brightness(98%) contrast(96%);
+}
+
+.about-me .about-me-social-media .github:hover {
+  filter: invert(12%) sepia(5%) saturate(4794%) hue-rotate(174deg)
+    brightness(98%) contrast(92%);
+}
+
+/* Services */
+
+.services {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  width: 50%;
+  margin: auto;
+  padding: 2rem 3rem;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.services h1 {
+  text-align: center;
+  font-size: 45px;
+  font-weight: 500;
+  border-bottom: var(--border-bottom-solid);
+  transition: 0.3s ease;
+}
+
+.service-offered {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 500;
+  transition: 0.3s ease;
+}
+
+.technical-skills {
+  
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.technical-skills .technical-skills-header {
+  margin-top: 8em;
+}
+
+.technical-skills h1 {
+  text-align: center;
+  font-size: 45px;
+  font-weight: 500;
+  border-bottom: var(--border-bottom-solid);
+  transition: 0.3s ease;
+}
+
+.technical-skills h1:hover {
+  color: var(--primary-color);
+  border-bottom: 4px #fff solid;
+}
+
+.skill-card {
+  margin-top: 3em;
+  font-weight: 500;
+  width: 70%;
+  border-radius: 10px;
+  padding: 30px 50px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.skill-bar {
+  width: 100%;
+  background-color: #ddd;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.skill-bar .progress-line {
+  height: 15px;
+  background: var(--primary-color);
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: 1px;
+  text-align: center;
+  transition: 0.3s ease;
+}
+
+.skill-bar .progress-line:hover {
+  transform: scale(1.1);
+}
+
+/* Contact */
+
+/* Services */
+
+.contact {
+  margin-bottom: 50px;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact .contact-header {
+  margin-top: 8em;
+}
+
+.contact h1 {
+  text-align: center;
+  font-size: 45px;
+  font-weight: 500;
+  border-bottom: var(--border-bottom-solid);
+  transition: 0.3s ease;
+}
+
+.html {
+  width: 50%;
+}
+
+.css {
+  width: 40%;
+}
+
+.javascript {
+  width: 40%;
+}
+
+.graphic-design {
+  width: 40%;
+}
+
+.editing {
+  width: 50%;
+}
+
+.digital-art {
+  width: 80%;
+}
