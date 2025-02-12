@@ -1,9 +1,6 @@
+import { HTMLAttributes } from "react";
 import { cn } from "../../lib/utils";
 import { useThemeStore } from "../../stores/useThemeStore";
-
-type Props = {
-	className?: string;
-};
 
 function Actions() {
 	const currentTheme = useThemeStore((state) => state.getCurrentColorScheme());
@@ -19,25 +16,30 @@ function Actions() {
 }
 
 function Title() {
+	const currentTheme = useThemeStore((state) => state.getCurrentColorScheme());
 	return (
 		<>
 			<div className="flex items-center">
-				<span className="text-foreground text-xs">My Porfolio</span>
+				<span className="text-xs font-medium"
+				style={{
+					color: currentTheme?.foreground,
+				}}
+        >My Porfolio</span>
 			</div>
 		</>
 	);
 }
 
-function TitleBar({ className }: Props) {
+function TitleBar(props: HTMLAttributes<HTMLDivElement>) {
 	const currentTheme = useThemeStore((state) => state.getCurrentColorScheme());
 
 	return (
 		<>
 			<div
-				className={cn("flex items-center justify-between px-4 py-2", className)}
+        {...props}
+				className={cn("flex items-center justify-between px-4 py-2 border-b", props.className)}
 				style={{
-					backgroundColor: currentTheme?.brightBlack,
-					color: currentTheme?.foreground,
+					backgroundColor: currentTheme?.background,
 				}}
 			>
 				<Actions />

@@ -15,7 +15,7 @@ type ThemeState = {
   getColorSchemeByName: (themeName: string) => Theme | undefined;
 };
 
-const DEFAULT_THEME = "AyuDark";
+const DEFAULT_THEME = "AyuLight";
 
 const useThemeStore = create<ThemeState>()(
   persist(

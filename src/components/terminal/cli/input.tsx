@@ -16,6 +16,7 @@ export function Input({ className, inputRef }: Props) {
 	const [historyIndex, setHistoryIndex] = useState(-1);
 
 	const currentTheme = useThemeStore((state) => state.getCurrentColorScheme());
+  const { getColorSchemeNames, getColorSchemeByName, setCurrentColorScheme } = useThemeStore();
 
 	const [command, setCommand] = useState<string>("");
 
@@ -42,7 +43,13 @@ export function Input({ className, inputRef }: Props) {
 		const trimmedCommand = commandStr.trim();
 		const [commandName, ...args] = trimmedCommand.split(" ");
 
-		const output = await executeCommand(commandName, args);
+		const output = await executeCommand(commandName, args, {
+      themeUtils: {
+        getColorSchemeNames,
+        getColorSchemeByName,
+        setCurrentColorScheme,
+      },
+    });
 
 		if (commandName === "clear") {
 			clearHistory();
@@ -118,7 +125,7 @@ export function Input({ className, inputRef }: Props) {
 					ref={inputRef}
 					aria-label="Command input"
 					className={cn(
-						"bg-transparent outline-none font-thin",
+						"bg-transparent outline-none",
 						className,
 					)}
 					placeholder="Type a command..."

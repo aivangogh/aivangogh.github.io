@@ -7,11 +7,11 @@ function PS1() {
   const currentTheme = useThemeStore((state) => state.getCurrentColorScheme());
 
   return (
-    <h1 className="font-bold flex">
+    <h1 className="font-medium flex">
       <span style={{ color: currentTheme?.yellow }}>guest</span>
-      <span style={{ color: currentTheme?.white }}>@</span>
-      <span style={{ color: currentTheme?.green }}>{hostname}</span>
-      <span style={{ color: currentTheme?.white }}>:~$</span>
+      <span style={{ color: currentTheme?.foreground }}>@</span>
+      <span className="whitespace-nowrap" style={{ color: currentTheme?.green }}>{hostname}</span>
+      <span style={{ color: currentTheme?.foreground }}>:~$</span>
     </h1>
   );
 }

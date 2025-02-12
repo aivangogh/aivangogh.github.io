@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { useHistoryStore } from "../../../stores/useHistoryStore";
 import { useThemeStore } from "../../../stores/useThemeStore";
 import { PS1 } from "./ps1";
@@ -10,14 +9,10 @@ export function History() {
   const currentTheme = getCurrentColorScheme();
   const { history } = useHistoryStore();
 
-  useEffect(() => {
-    console.log("History updated:", history); // Add this debug log
-  }, [history]);
-
   return (
     <>
       {history.map(({ command, outputs }, index) => (
-        <div style={{ color: currentTheme?.foreground }}>
+        <div key={index} style={{ color: currentTheme?.foreground }}>
           <div className="flex flex-col md:flex-row">
             <PS1 />
 
