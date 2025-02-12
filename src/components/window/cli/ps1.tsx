@@ -1,26 +1,35 @@
-import { cn } from "../../../lib/utils";
+"use client";
+
+import { useEffect } from "react";
 import { useThemeStore } from "../../../stores/useThemeStore";
 
 function PS1() {
-	const hostname = window.location.hostname;
-	const { getCurrentColorScheme } = useThemeStore();
+  const hostname = window.location.hostname;
+  const { getCurrentColorScheme, setCurrentColorScheme } = useThemeStore();
+  const currentTheme = getCurrentColorScheme();
 
-	return (
-		<>
-			<h1 className="font-bold flex">
-				<span className={cn(`text-[${getCurrentColorScheme()?.yellow}]`)}>
-					guest
-				</span>
-				<span className={cn({ color: getCurrentColorScheme()?.white })}>@</span>
-				<span className={cn({ color: getCurrentColorScheme()?.green })}>
-					{hostname}
-				</span>
-				<span className={cn({ color: getCurrentColorScheme()?.white })}>
-					:~$
-				</span>
-			</h1>
-		</>
-	);
+  useEffect(() => {
+    if (!currentTheme) {
+      setCurrentColorScheme("AyuDark");
+    }
+  }, []);
+
+  if (!currentTheme) {
+    return null; // or a loading state
+  }
+
+  return (
+    <h1 className="font-bold flex">
+      <span
+        style={{ color: currentTheme.yellow }}
+      >
+        guest
+      </span>
+      <span style={{ color: currentTheme.white }}>@</span>
+      <span style={{ color: currentTheme.green }}>{hostname}</span>
+      <span style={{ color: currentTheme.white }}>:~$</span>
+    </h1>
+  );
 }
 
 export { PS1 };
