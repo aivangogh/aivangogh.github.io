@@ -3,12 +3,14 @@ import { cn } from "../../../lib/utils";
 import { History } from "./history";
 import { Input } from "./input";
 import { PS1 } from "./ps1";
+import { useThemeStore } from "../../../stores/useThemeStore";
 
 type Props = {
 	className?: string;
 };
 
 function CLI({ className }: Props) {
+	const currentTheme = useThemeStore((state) => state.getCurrentColorScheme());
 	const cliRef = useRef<HTMLDivElement>(null);
 	const inputRef = useRef<HTMLInputElement>(null);
 
@@ -35,9 +37,10 @@ function CLI({ className }: Props) {
 			<div
         ref={cliRef}
 				className={cn(
-					"h-[calc(100vh-3.5rem)] rounded-b-xl bg-black overflow-y-scroll",
+					"h-full overflow-y-auto px-1.5 py-1",
 					className,
 				)}
+        style={{ backgroundColor: currentTheme?.background }}
 			>
 				<History />
 				<div className="flex gap-1">

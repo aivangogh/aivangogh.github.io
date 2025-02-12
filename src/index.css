@@ -1,12 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
+
 @import "tailwindcss";
 
-@font-face {
-  font-family: 'Cascadia Code';
-  src: url('/fonts/CascadiaCode.ttf')
-}
-
 * {
-  font-family: 'Cascadia Code', monospace;
+  font-family: 'Space Mono', monospace;
 }
 
 * {
