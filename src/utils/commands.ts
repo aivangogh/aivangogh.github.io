@@ -1,4 +1,3 @@
-
 const hostname = window.location.hostname;
 
 type CommandArgs = {
@@ -22,8 +21,17 @@ const specialCommands: Record<string, Command> = {
 		description: "Display available commands and their descriptions",
 		execute: () => {
 			const allCommands = { ...specialCommands, ...commands };
+			// Find the length of the longest command name
+			const maxLength = Math.max(
+				...Object.keys(allCommands).map((cmd) => cmd.length),
+			);
+
 			return Object.entries(allCommands)
-				.map(([cmd, details]) => `${cmd} - ${details.description}`)
+				.map(([cmd, details]) => {
+					// Pad the command name with spaces to align all descriptions
+					const paddedCmd = cmd.padEnd(maxLength + 4); // Add 4 spaces for spacing
+					return `${paddedCmd}${details.description}`;
+				})
 				.join("\n");
 		},
 	},
@@ -77,7 +85,7 @@ export const commands: Record<string, Command> = {
 		execute: () => "Please close the tab to exit.",
 	},
 	sudo: {
-		description: "Attempt to run command with elevated privileges",
+		description: "Attempt to run command with root privileges",
 		execute: (args) => {
 			window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
 			return `Permission denied: unable to run the command '${args[0]}' as root.`;
