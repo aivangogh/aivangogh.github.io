@@ -12,7 +12,7 @@ export function useGetProjects() {
 			if (res.status !== 200) {
 				throw new Error("Failed to fetch projects");
 			}
-			const data = res.data.files["projects.json"].content;
+			const data = res.data.files["projects"].content;
 
 			try {
 				const projects = JSON.parse(data) as Project[];

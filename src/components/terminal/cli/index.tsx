@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { RefObject, useEffect, useRef } from "react";
 import { cn } from "../../../lib/utils";
 import { History } from "./history";
 import { Input } from "./input";
@@ -7,11 +7,11 @@ import { useThemeStore } from "../../../stores/useThemeStore";
 
 type Props = {
 	className?: string;
+	cliRef: RefObject<HTMLDivElement>;
 };
 
-function CLI({ className }: Props) {
+function CLI({ className, cliRef }: Props) {
 	const currentTheme = useThemeStore((state) => state.getCurrentColorScheme());
-	const cliRef = useRef<HTMLDivElement>(null);
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	// Focus input only when clicking inside the CLI window
