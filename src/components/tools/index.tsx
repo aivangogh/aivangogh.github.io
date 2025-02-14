@@ -1,11 +1,36 @@
 import { HTMLAttributes } from "react";
 import { cn } from "../../lib/utils";
+import { Header } from "../header";
+import { icons as tools } from "../icons";
+
+function CardTools(props: HTMLAttributes<HTMLDivElement>) {
+	return (
+		<>
+			<div {...props} className={cn(props.className)}>
+				{tools.map((tool) => (
+					<div
+						key={tool.id}
+						className="w-16 h-16 md:w-20 md:h-20 px-2 py-2 border flex flex-col items-center justify-center gap-2"
+					>
+						<tool.icon className="w-8 h-8" />
+						<span className="flex items-end text-[8px] md:text-[10px] text-center">
+							{tool.name}
+						</span>
+					</div>
+				))}
+			</div>
+		</>
+	);
+}
 
 export function Tools(props: HTMLAttributes<HTMLDivElement>) {
 	return (
 		<>
-			<div {...props} className={cn(props.className)}>
-				<h1 className="text-3xl font-bold">/tools</h1>
+			<div {...props} className={cn("flex flex-col gap-2", props.className)}>
+				<Header header="/tools" />
+				<div className="ml-4">
+					<CardTools className="flex flex-wrap gap-2" />
+				</div>
 			</div>
 		</>
 	);

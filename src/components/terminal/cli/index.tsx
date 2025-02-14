@@ -37,7 +37,7 @@ function CLI({ className }: Props) {
 			<div
         ref={cliRef}
 				className={cn(
-					"h-full overflow-y-auto px-1.5 py-1 font-medium",
+					"h-full w-full overflow-x-hidden overflow-y-auto px-1.5 py-1 font-medium",
 					className,
 				)}
         style={{ backgroundColor: currentTheme?.background }}

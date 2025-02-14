@@ -6,10 +6,19 @@ function Actions() {
 	const currentTheme = useThemeStore((state) => state.getCurrentColorScheme());
 	return (
 		<>
-			<div className="flex items-center gap-2">
-				<div className="h-3 w-3 rounded-full" style={{ backgroundColor: currentTheme?.red }}></div>
-				<div className="h-3 w-3 rounded-full" style={{ backgroundColor: currentTheme?.yellow }}></div>
-				<div className="h-3 w-3 rounded-full" style={{ backgroundColor: currentTheme?.green }}></div>
+			<div className="flex items-center gap-1.5 md:gap-2">
+				<div
+					className="h-2 md:h-3 w-2 md:w-3 rounded-full"
+					style={{ backgroundColor: currentTheme?.red }}
+				></div>
+				<div
+					className="h-2 md:h-3 w-2 md:w-3 rounded-full"
+					style={{ backgroundColor: currentTheme?.yellow }}
+				></div>
+				<div
+					className="h-2 md:h-3 w-2 md:w-3 rounded-full"
+					style={{ backgroundColor: currentTheme?.green }}
+				></div>
 			</div>
 		</>
 	);
@@ -20,11 +29,14 @@ function Title() {
 	return (
 		<>
 			<div className="flex items-center">
-				<span className="text-xs font-medium"
-				style={{
-					color: currentTheme?.foreground,
-				}}
-        >My Porfolio</span>
+				<span
+					className="text-[10px] md:text-xs font-medium"
+					style={{
+						color: currentTheme?.foreground,
+					}}
+				>
+					My Porfolio
+				</span>
 			</div>
 		</>
 	);
@@ -36,8 +48,11 @@ function TitleBar(props: HTMLAttributes<HTMLDivElement>) {
 	return (
 		<>
 			<div
-        {...props}
-				className={cn("flex items-center justify-between px-4 py-2 border-b", props.className)}
+				{...props}
+				className={cn(
+					"flex items-center justify-between px-2 md:px-4 py-1 md:py-2 border-b",
+					props.className,
+				)}
 				style={{
 					backgroundColor: currentTheme?.background,
 				}}

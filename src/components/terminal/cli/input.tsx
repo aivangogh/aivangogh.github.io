@@ -16,21 +16,25 @@ export function Input({ className, inputRef }: Props) {
 	const [historyIndex, setHistoryIndex] = useState(-1);
 
 	const currentTheme = useThemeStore((state) => state.getCurrentColorScheme());
-  const { getColorSchemeNames, getColorSchemeByName, setCurrentColorScheme } = useThemeStore();
-
+	const { getColorSchemeNames, getColorSchemeByName, setCurrentColorScheme } =
+		useThemeStore();
+	const [isInitialLoad, setIsInitialLoad] = useState(true);
 	const [command, setCommand] = useState<string>("");
 
 	useEffect(() => {
-		inputRef.current?.focus();
-
-		async function executeBanner() {
-			if (history.length === 0) {
+		const executeBanner = async () => {
+			if (isInitialLoad) {
 				const output = await executeCommand("banner", []);
 				const historyItem = { command: "banner", outputs: [output] };
 				addHistory([historyItem]);
+				setIsInitialLoad(false);
 			}
-		}
+		};
 		executeBanner();
+	}, []);
+
+	useEffect(() => {
+		inputRef.current?.focus();
 	}, [command]);
 
 	useEffect(() => {
@@ -44,12 +48,12 @@ export function Input({ className, inputRef }: Props) {
 		const [commandName, ...args] = trimmedCommand.split(" ");
 
 		const output = await executeCommand(commandName, args, {
-      themeUtils: {
-        getColorSchemeNames,
-        getColorSchemeByName,
-        setCurrentColorScheme,
-      },
-    });
+			themeUtils: {
+				getColorSchemeNames,
+				getColorSchemeByName,
+				setCurrentColorScheme,
+			},
+		});
 
 		if (commandName === "clear") {
 			clearHistory();
@@ -120,19 +124,17 @@ export function Input({ className, inputRef }: Props) {
 	return (
 		<>
 			<div className="flex w-full">
-				<p className="visible md:hidden" style={{ color: currentTheme?.green }}>❯</p>
 				<input
-					ref={inputRef}
+          id="terminal-input"
+	 				ref={inputRef}
 					aria-label="Command input"
-					className={cn(
-						"bg-transparent outline-none",
-						className,
-					)}
+					className={cn("w-full bg-transparent outline-none", className)}
 					placeholder="Type a command..."
 					style={{ color: currentTheme?.foreground }}
 					value={command}
 					onChange={(e) => setCommand(e.target.value)}
 					onKeyDown={handleKeyDown}
+          spellCheck="false"
 				/>
 			</div>
 		</>

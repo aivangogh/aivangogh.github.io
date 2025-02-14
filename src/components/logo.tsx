@@ -2,7 +2,9 @@
 export function Logo() {
   return (
     <>
-      <span className="font-semibold text-lg">aivan.dev</span>
+      <div>
+        <span className="font-extrabold text:md md:text-lg">aivan_dev</span>
+      </div>
     </>
   );
 }

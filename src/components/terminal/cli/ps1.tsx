@@ -8,10 +8,10 @@ function PS1() {
 
   return (
     <h1 className="font-medium flex">
-      <span style={{ color: currentTheme?.yellow }}>guest</span>
-      <span style={{ color: currentTheme?.foreground }}>@</span>
+      <span className="hidden md:inline" style={{ color: currentTheme?.yellow }}>guest</span>
+      <span className="hidden md:inline" style={{ color: currentTheme?.foreground }}>@</span>
       <span className="whitespace-nowrap" style={{ color: currentTheme?.green }}>{hostname}</span>
-      <span style={{ color: currentTheme?.foreground }}>:~$</span>
+      <span style={{ color: currentTheme?.foreground }}>:$</span>
     </h1>
   );
 }
