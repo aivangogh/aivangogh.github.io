@@ -4,7 +4,7 @@ import { cn } from "../lib/utils";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
 export function Footer(props: HTMLAttributes<HTMLDivElement>) {
-	const techStackUsed = ["typescript", "react", "tailwindcss"];
+	const techStackUsed = ["typescript", "react", "tailwindcss", "zustand"];
 
 	return (
 		<>

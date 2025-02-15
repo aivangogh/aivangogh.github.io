@@ -1,6 +1,7 @@
 import { IconType } from "react-icons";
 import { BiLogoPostgresql } from "react-icons/bi";
 import { FaGitAlt, FaGithub, FaNodeJs, FaReact } from "react-icons/fa";
+import { GiBearFace } from "react-icons/gi";
 import { RiNextjsFill } from "react-icons/ri";
 import {
   SiDrizzle,
@@ -46,6 +47,11 @@ export const icons = [
 		name: "Tailwind",
 		icon: SiTailwindcss,
 	},
+  {
+    id: "zustand",
+    name: "Zustand",
+    icon: GiBearFace,
+  },
 	{
 		id: "nodejs",
 		name: "Node.js",
