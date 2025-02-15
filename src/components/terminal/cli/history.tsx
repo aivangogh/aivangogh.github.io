@@ -25,12 +25,12 @@ export function History() {
 					)}
 					{outputs &&
 						outputs.map((output, outputIndex) => (
-							<div
-								className="whitespace-pre-wrap"
+							<pre
+								className="whitespace-pre-wrap font-mono"
 								key={`output-${index}-${outputIndex}`}
 							>
 								{output}
-							</div>
+							</pre>
 						))}
 				</div>
 			))}

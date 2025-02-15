@@ -1,22 +1,8 @@
+import { CommandArgs, CommandUtil } from "../types/command";
+
 const hostname = window.location.hostname;
 
-type CommandArgs = {
-	themeUtils?: {
-		getColorSchemeNames: () => string[];
-		getColorSchemeByName: (name: string) => any;
-		setCurrentColorScheme: (name: string) => void;
-	};
-};
-
-type Command = {
-	description: string;
-	execute: (
-		args: string[],
-		commandArgs?: CommandArgs,
-	) => Promise<string> | string;
-};
-
-const specialCommands: Record<string, Command> = {
+const specialCommands: Record<string, CommandUtil> = {
 	help: {
 		description: "Display available commands and their descriptions",
 		execute: () => {
@@ -38,28 +24,49 @@ const specialCommands: Record<string, Command> = {
 	about: {
 		description: "Learn more about me and my background",
 		execute: () =>
-			"I'm a software developer passionate about creating interactive experiences.",
+			"\n\tHello! I’m Ivan P.Gemota, a dedicated full- stack developer with a passion for crafting innovative and impactful digital solutions. With a solid foundation in web development, I bring expertise in a diverse array of programming languages and frameworks, enabling me to tackle complex challenges and deliver high- quality results.\n\n\tI thrive on continuous learning and am always exploring emerging technologies and best practices to refine my skills and stay ahead in the ever - evolving tech landscape.\n",
 	},
 	projects: {
 		description: "View my portfolio of projects",
-		execute: () => "Here are some of my notable projects: [Your projects here]",
+		execute: () => "Here are some of my notable projects: (to be added)",
 	},
 	skills: {
 		description: "See my technical skills and expertise",
-		execute: () => "My skills include: TypeScript, React, Node.js, and more",
+		execute: () =>
+			"My skills include:\n\nTypeScript\nJavaScript\nReact\nNext.js\nTailwind CSS\nZustand\nNode.js\nExpress.js\nMongoDB\nPostgreSQL\nMySQL\nDizzle ORM\nPrisma ORM\nGit",
 	},
 	contact: {
 		description: "Get my contact information",
-		execute: () => "You can reach me at: [Your contact info]",
+		execute: () =>
+			"You can reach me at:\n\nEmail: ivangemota23@gmail.com\nLinkedIn: https://www.linkedin.com/in/aivangogh/\nGitHub: https://github.com/aivangogh\n\nLooking forward to connecting with you!",
 	},
 	banner: {
 		description: "Greet the user",
 		execute: () =>
-			"Welcome to my portfolio. Type 'help' for a list of commands.",
+			`
+    ╔════════════════════════════════════════════════════════════════╗
+    ║                                                                ║
+    ║ ██╗    ██╗███████╗██╗      ██████╗ ██████╗ ███╗   ███╗███████╗ ║
+    ║ ██║    ██║██╔════╝██║     ██╔════╝██╔═══██╗████╗ ████║██╔════╝ ║
+    ║ ██║ █╗ ██║█████╗  ██║     ██║     ██║   ██║██╔████╔██║█████╗   ║
+    ║ ██║███╗██║██╔══╝  ██║     ██║     ██║   ██║██║╚██╔╝██║██╔══╝   ║
+    ║ ╚███╔███╔╝███████╗███████╗╚██████╗╚██████╔╝██║ ╚═╝ ██║███████╗ ║
+    ║  ╚══╝╚══╝ ╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝ ║
+    ║                                                                ║
+    ║                       To My Portfolio                          ║
+    ║                                                                ║
+    ║            Type 'help' to see available commands               ║
+    ║            Type 'about' to learn more about me                 ║
+    ║            Type 'projects' to view my work                     ║
+    ║            Type 'skils' to see my technical skills             ║
+    ║            Type 'contact' to get in touch with me              ║
+    ║                                                                ║
+    ╚════════════════════════════════════════════════════════════════╝
+`,
 	},
 };
 
-export const commands: Record<string, Command> = {
+export const commands: Record<string, CommandUtil> = {
 	hostname: {
 		description: "Display the current hostname",
 		execute: () => hostname,
@@ -149,7 +156,7 @@ export const executeCommand = (
 	const command = allCommands[commandName];
 
 	if (!command) {
-		return `Command not found: ${commandName}. Type 'help' to see available commands.`;
+		return `CommandUtil not found: ${commandName}. Type 'help' to see available commands.`;
 	}
 
 	return command.execute(args, commandArgs);
