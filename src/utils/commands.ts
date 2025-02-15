@@ -43,26 +43,7 @@ const specialCommands: Record<string, CommandUtil> = {
 	banner: {
 		description: "Greet the user",
 		execute: () =>
-			`
-    ╔════════════════════════════════════════════════════════════════╗
-    ║                                                                ║
-    ║ ██╗    ██╗███████╗██╗      ██████╗ ██████╗ ███╗   ███╗███████╗ ║
-    ║ ██║    ██║██╔════╝██║     ██╔════╝██╔═══██╗████╗ ████║██╔════╝ ║
-    ║ ██║ █╗ ██║█████╗  ██║     ██║     ██║   ██║██╔████╔██║█████╗   ║
-    ║ ██║███╗██║██╔══╝  ██║     ██║     ██║   ██║██║╚██╔╝██║██╔══╝   ║
-    ║ ╚███╔███╔╝███████╗███████╗╚██████╗╚██████╔╝██║ ╚═╝ ██║███████╗ ║
-    ║  ╚══╝╚══╝ ╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝ ║
-    ║                                                                ║
-    ║                       To My Portfolio                          ║
-    ║                                                                ║
-    ║            Type 'help' to see available commands               ║
-    ║            Type 'about' to learn more about me                 ║
-    ║            Type 'projects' to view my work                     ║
-    ║            Type 'skils' to see my technical skills             ║
-    ║            Type 'contact' to get in touch with me              ║
-    ║                                                                ║
-    ╚════════════════════════════════════════════════════════════════╝
-`,
+			"Welcome to my portfolio. Type 'help' for a list of commands.",
 	},
 };
 

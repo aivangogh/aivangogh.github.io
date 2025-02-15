@@ -12,7 +12,7 @@ function PS1() {
 				// <span className="hidden md:inline" style={{ color: currentTheme?.foreground }}>@</span>
 				// <span className="whitespace-nowrap" style={{ color: currentTheme?.green }}>{hostname}</span>
 			}
-      <span className="hidden md:inline" style={{ color: currentTheme?.yellow }}>guest</span>
+      <span className="" style={{ color: currentTheme?.yellow }}>guest</span>
 			<span style={{ color: currentTheme?.foreground }}>:$</span>
 		</h1>
 	);

@@ -8,7 +8,7 @@ export function Projects(props: HTMLAttributes<HTMLDivElement>) {
 		<>
 			<div {...props} className={cn("flex flex-col gap-2", props.className)}>
         <Header header="/projects" />
-        <div>
+        <div className="flex max-md:justify-center">
           <ProjectsList className="px-4" />
         </div>
 			</div>

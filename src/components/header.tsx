@@ -1,4 +1,5 @@
 import { HTMLAttributes } from "react";
+import { cn } from "../lib/utils";
 
 type HeaderProps = {
 	header: string;
@@ -9,7 +10,7 @@ export function Header(
 ) {
 	return (
 		<>
-			<h1 {...props} className="text-2xl md:text-3xl font-bold">
+			<h1 {...props} className={cn("text-2xl md:text-3xl font-bold mb-2", props.className)}>
 				{props.header}
 			</h1>
 		</>

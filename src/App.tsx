@@ -24,7 +24,7 @@ function App() {
 					<div className="flex flex-col gap-8 pb-4">
 						<NavBar />
 						<div className="max-md:px-4 flex flex-col gap-8">
-							<Banner className="mx-auto mt-4" />
+							<Banner id="/" className="mx-auto mt-4" />
 							<div className="flex items-center justify-center my-8 md:my-10">
 								<Terminal
 									id="terminal"
