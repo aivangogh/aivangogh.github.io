@@ -3,7 +3,7 @@ import { useThemeStore } from "../../../stores/useThemeStore";
 import { PS1 } from "./ps1";
 
 export function History() {
-	const currentTheme = useThemeStore((state) => state.getCurrentColorScheme());
+	const currentTheme = useThemeStore((state) => state.getTerminalColorScheme());
 	const { historyBuffer } = useHistoryStore();
 
 	return (

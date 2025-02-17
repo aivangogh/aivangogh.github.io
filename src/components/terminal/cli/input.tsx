@@ -3,7 +3,7 @@ import { cn } from "../../../lib/utils";
 import { useHistoryStore } from "../../../stores/useHistoryStore";
 import { useInputPromptStore } from "../../../stores/useInputPromptStore";
 import { useThemeStore } from "../../../stores/useThemeStore";
-import { commands, executeCommand } from "../../../utils/commands";
+import { allCommands, executeCommand } from "../../../utils/commands";
 
 type Props = {
 	className?: string;
@@ -18,11 +18,11 @@ type PromptState = {
 };
 
 export function Input({ className, inputRef }: Props) {
+  const themeStore = useThemeStore();
+
 	const historyStore = useHistoryStore();
 	const [historyIndex, setHistoryIndex] = useState(-1);
 
-	const currentTheme = useThemeStore((state) => state.getCurrentColorScheme());
-	const themeStore = useThemeStore();
 	const [isInitialLoad, setIsInitialLoad] = useState(true);
 	const promptStore = useInputPromptStore();
 	const [command, setCommand] = useState<string>("");
@@ -144,7 +144,7 @@ export function Input({ className, inputRef }: Props) {
 	};
 
 	const handleTabCompletion = () => {
-		const autoCompleteCommand = Object.keys(commands).find((cmd) =>
+		const autoCompleteCommand = Object.keys(allCommands).find((cmd) =>
 			cmd.startsWith(command.toLowerCase()),
 		);
 		if (autoCompleteCommand) {
@@ -193,7 +193,7 @@ export function Input({ className, inputRef }: Props) {
 						ref={inputRef}
 						aria-label="Command input"
 						className={cn("w-full bg-transparent outline-none", className)}
-						style={{ color: currentTheme?.foreground }}
+						style={{ color: themeStore.getTerminalColorScheme()?.foreground }}
 						value={command}
 						onChange={(e) => setCommand(e.target.value)}
 						onKeyDown={handleKeyDown}
@@ -208,7 +208,7 @@ export function Input({ className, inputRef }: Props) {
 						placeholder={
 							promptState.isWaiting ? promptState.message : "Type a command..."
 						}
-						style={{ color: currentTheme?.foreground }}
+						style={{ color: themeStore.getTerminalColorScheme()?.foreground }}
 						value={command}
 						onChange={(e) => setCommand(e.target.value)}
 						onKeyDown={handleKeyDown}

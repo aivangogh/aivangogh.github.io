@@ -2,7 +2,7 @@ import { useThemeStore } from "../../../stores/useThemeStore";
 
 function PS1() {
 	//const hostname = window.location.hostname;
-	const currentTheme = useThemeStore((state) => state.getCurrentColorScheme());
+	const currentTheme = useThemeStore((state) => state.getTerminalColorScheme());
 
 	return (
 		<h1 className="font-medium flex">

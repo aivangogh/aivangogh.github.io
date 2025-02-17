@@ -12,7 +12,7 @@ type Props = {
 };
 
 function CLI({ className, cliRef }: Props) {
-	const currentTheme = useThemeStore((state) => state.getCurrentColorScheme());
+	const currentTheme = useThemeStore((state) => state.getTerminalColorScheme());
 	const isPrompt = useInputPromptStore((state) => state.isPrompt);
 	const inputRef = useRef<HTMLInputElement>(null);
 

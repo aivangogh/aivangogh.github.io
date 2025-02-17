@@ -6,7 +6,7 @@ import { Keys } from "./keys";
 import { TitleBar } from "./title-bar";
 
 export function Terminal(props: React.HTMLAttributes<HTMLDivElement>) {
-	const currentTheme = useThemeStore((state) => state.getCurrentColorScheme());
+	const currentTheme = useThemeStore((state) => state.getTerminalColorScheme());
 	const cliRef = useRef<HTMLDivElement>(null);
 
 	return (

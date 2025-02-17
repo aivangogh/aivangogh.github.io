@@ -3,7 +3,7 @@ import { cn } from "../../lib/utils";
 import { useThemeStore } from "../../stores/useThemeStore";
 
 function Actions() {
-	const currentTheme = useThemeStore((state) => state.getCurrentColorScheme());
+	const currentTheme = useThemeStore((state) => state.getTerminalColorScheme());
 	return (
 		<>
 			<div className="flex items-center gap-1.5 md:gap-2">
@@ -25,7 +25,7 @@ function Actions() {
 }
 
 function Title() {
-	const currentTheme = useThemeStore((state) => state.getCurrentColorScheme());
+	const currentTheme = useThemeStore((state) => state.getTerminalColorScheme());
 	return (
 		<>
 			<div className="flex items-center">
@@ -43,7 +43,7 @@ function Title() {
 }
 
 function TitleBar(props: HTMLAttributes<HTMLDivElement>) {
-	const currentTheme = useThemeStore((state) => state.getCurrentColorScheme());
+	const currentTheme = useThemeStore((state) => state.getTerminalColorScheme());
 
 	return (
 		<>
