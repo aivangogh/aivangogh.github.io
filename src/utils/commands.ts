@@ -82,7 +82,7 @@ export const commands: Record<string, CommandUtil> = {
 	theme: {
 		description: "Change the terminal theme",
 		execute: (args, commandArgs) => {
-			const usage = `Usage: theme [args]\n[args]:\n\tls: list all available themes\n\tset: set theme to [theme]\n[Examples]:\n\ttheme ls\n\ttheme set ayuDark`;
+			const usage = `Usage: theme [args]\n[args]:\n\tls: list all available themes\n\tset: set theme to [theme]\n[Examples]:\n\ttheme ls\n\ttheme set AyuDark`;
 
 			if (!commandArgs?.themeUtils) {
 				return "Theme system is not available.";
