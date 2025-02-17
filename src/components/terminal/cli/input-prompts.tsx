@@ -8,8 +8,8 @@ export function InputPrompts() {
 
 	return (
 		<>
-			<div style={{ color: currentTheme?.foreground }}>
-				<div className="flex flex-row">
+			<div style={{ color: currentTheme?.foreground }} className="flex flex-row">
+				<div className="flex items-center">
 					<PS1 />
 					<div className="flex">
 						<div className="px-1">command</div>

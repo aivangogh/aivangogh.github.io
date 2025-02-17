@@ -3,7 +3,7 @@ import { cn } from "../../../lib/utils";
 import { useHistoryStore } from "../../../stores/useHistoryStore";
 import { useInputPromptStore } from "../../../stores/useInputPromptStore";
 import { useThemeStore } from "../../../stores/useThemeStore";
-import { allCommands, executeCommand } from "../../../utils/commands";
+import { allCommands, executeCommand } from "../../../utils/command";
 
 type Props = {
 	className?: string;
@@ -18,7 +18,7 @@ type PromptState = {
 };
 
 export function Input({ className, inputRef }: Props) {
-  const themeStore = useThemeStore();
+	const themeStore = useThemeStore();
 
 	const historyStore = useHistoryStore();
 	const [historyIndex, setHistoryIndex] = useState(-1);
@@ -73,7 +73,7 @@ export function Input({ className, inputRef }: Props) {
 			historyUtils: historyStore,
 		});
 
-    console.log(result);
+		console.log(result);
 
 		if (typeof result === "string") {
 			// Update the last history item with the output
@@ -186,7 +186,7 @@ export function Input({ className, inputRef }: Props) {
 
 	return (
 		<>
-			<div className="flex w-full">
+			<div className={cn("flex w-full", className)}>
 				{promptStore.isPrompt ? (
 					<input
 						id="terminal-input"

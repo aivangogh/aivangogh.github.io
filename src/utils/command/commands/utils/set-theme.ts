@@ -1,4 +1,4 @@
-import { ThemeState } from "../../../stores/useThemeStore";
+import { ThemeState } from "../../../../stores/useThemeStore";
 
 type CurrentColorScheme = Pick<
 	ThemeState,
@@ -27,11 +27,11 @@ export function setTheme(
 	}
 
 	if (themeFor === "terminal") {
-    themeUtils.setTerminalColorScheme(themeName);
+		themeUtils.setTerminalColorScheme(themeName);
 	}
 
 	if (themeFor === "user-interface") {
-    themeUtils.setCurrentColorScheme(themeName);
+		themeUtils.setCurrentColorScheme(themeName);
 	}
 
 	return `Theme changed to ${themeName}`;
