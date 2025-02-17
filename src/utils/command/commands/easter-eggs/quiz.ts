@@ -1,4 +1,4 @@
-import { CommandUtil } from "../../../types/command";
+import { CommandUtil } from "../../../../types/command";
 
 export const quiz: CommandUtil = {
 	description: "Start a quiz game",

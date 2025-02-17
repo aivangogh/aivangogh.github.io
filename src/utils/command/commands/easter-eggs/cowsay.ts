@@ -1,4 +1,4 @@
-import { CommandUtil } from "../../../types/command";
+import { CommandUtil } from "../../../../types/command";
 
 export const cowsay: CommandUtil = {
 	description: "Display a message with a cow",

@@ -1,10 +1,8 @@
 import { RefObject, useEffect, useRef } from "react";
 import { cn } from "../../../lib/utils";
-import { useInputPromptStore } from "../../../stores/useInputPromptStore";
 import { useThemeStore } from "../../../stores/useThemeStore";
 import { History } from "./history";
 import { Input } from "./input";
-import { PS1 } from "./ps1";
 
 type Props = {
 	className?: string;
@@ -13,7 +11,6 @@ type Props = {
 
 function CLI({ className, cliRef }: Props) {
 	const currentTheme = useThemeStore((state) => state.getTerminalColorScheme());
-	const isPrompt = useInputPromptStore((state) => state.isPrompt);
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	// Focus input only when clicking inside the CLI window
@@ -46,7 +43,6 @@ function CLI({ className, cliRef }: Props) {
 			>
 				<History />
 				<div className="flex gap-1">
-					{!isPrompt && <PS1 />}
 					<Input inputRef={inputRef} />
 				</div>
 			</div>
