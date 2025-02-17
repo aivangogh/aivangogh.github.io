@@ -1,8 +1,7 @@
-"use client";
-
 import { KeyboardEvent, RefObject, useEffect, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { useHistoryStore } from "../../../stores/useHistoryStore";
+import { useInputPromptStore } from "../../../stores/useInputPromptStore";
 import { useThemeStore } from "../../../stores/useThemeStore";
 import { commands, executeCommand } from "../../../utils/commands";
 
@@ -11,22 +10,40 @@ type Props = {
 	inputRef: RefObject<HTMLInputElement>;
 };
 
+type PromptState = {
+	isWaiting: boolean;
+	message: string;
+	command: string;
+	onResponse: ((response: string) => Promise<string> | string) | null;
+};
+
 export function Input({ className, inputRef }: Props) {
-	const { history, addHistory, clearHistory } = useHistoryStore();
+	const historyStore = useHistoryStore();
 	const [historyIndex, setHistoryIndex] = useState(-1);
 
 	const currentTheme = useThemeStore((state) => state.getCurrentColorScheme());
-	const { getColorSchemeNames, getColorSchemeByName, setCurrentColorScheme } =
-		useThemeStore();
+	const themeStore = useThemeStore();
 	const [isInitialLoad, setIsInitialLoad] = useState(true);
+	const promptStore = useInputPromptStore();
 	const [command, setCommand] = useState<string>("");
+	const [promptState, setPromptState] = useState<PromptState>({
+		isWaiting: false,
+		message: "",
+		command: "",
+		onResponse: null,
+	});
 
 	useEffect(() => {
 		const executeBanner = async () => {
 			if (isInitialLoad) {
 				const output = await executeCommand("banner", []);
-				const historyItem = { command: "banner", outputs: [output] };
-				addHistory([historyItem]);
+
+				if (typeof output === "string") {
+					historyStore.addHistoryBuffer({
+						command: "banner",
+						outputs: [output],
+					});
+				}
 				setIsInitialLoad(false);
 			}
 		};
@@ -45,41 +62,83 @@ export function Input({ className, inputRef }: Props) {
 
 	const handleCommand = async (commandStr: string) => {
 		const trimmedCommand = commandStr.trim();
+
+		const initialHistoryItem = { command: trimmedCommand, outputs: [] };
+		historyStore.addHistoryBuffer(initialHistoryItem);
+
 		const [commandName, ...args] = trimmedCommand.split(" ");
 
-		const output = await executeCommand(commandName, args, {
-			themeUtils: {
-				getColorSchemeNames,
-				getColorSchemeByName,
-				setCurrentColorScheme,
-			},
+		const result = await executeCommand(commandName, args, {
+			themeUtils: themeStore,
+			historyUtils: historyStore,
 		});
 
-		if (commandName === "clear") {
-			clearHistory();
-		} else {
-			const historyItem = { command: trimmedCommand, outputs: [output] };
-			addHistory([historyItem]);
-		}
+    console.log(result);
 
+		if (typeof result === "string") {
+			// Update the last history item with the output
+			historyStore.updateLastHistoryItem({
+				command: trimmedCommand,
+				outputs: [result],
+			});
+			setCommand("");
+			setHistoryIndex(-1);
+		} else if (result.isPrompt) {
+			promptStore.setPromptBoolean(true);
+			promptStore.setPromptMessage(result.message);
+
+			historyStore.updateLastHistoryItem({
+				command: trimmedCommand,
+				outputs: [result.message],
+			});
+
+			setPromptState({
+				isWaiting: true,
+				message: result.message,
+				command: trimmedCommand,
+				onResponse: result.onResponse || null,
+			});
+			setCommand("");
+		}
+	};
+
+	const handlePromptResponse = async (response: string) => {
+		if (promptState.onResponse) {
+			const result = await promptState.onResponse(response);
+
+			const historyItem = {
+				command: promptState.command,
+				outputs: [result],
+			};
+			historyStore.addHistoryBuffer(historyItem);
+		}
+		setPromptState({
+			isWaiting: false,
+			message: "",
+			command: "",
+			onResponse: null,
+		});
 		setCommand("");
-		setHistoryIndex(-1);
+		promptStore.setPromptMessage("");
+		promptStore.resetPromptBoolean();
 	};
 
 	const handleHistoryNavigation = (direction: "up" | "down") => {
-		const historyLength = history.length;
+		const historyLength = historyStore.history.length;
 		if (historyLength === 0) return;
 
 		if (direction === "up") {
 			const newIndex =
 				historyIndex < historyLength - 1 ? historyIndex + 1 : historyIndex;
 			setHistoryIndex(newIndex);
-			setCommand(history[historyLength - 1 - newIndex].command);
+			setCommand(historyStore.history[historyLength - 1 - newIndex].command);
 		} else {
 			const newIndex = historyIndex > 0 ? historyIndex - 1 : -1;
 			setHistoryIndex(newIndex);
 			setCommand(
-				newIndex >= 0 ? history[historyLength - 1 - newIndex].command : "",
+				newIndex >= 0
+					? historyStore.history[historyLength - 1 - newIndex].command
+					: "",
 			);
 		}
 	};
@@ -96,7 +155,11 @@ export function Input({ className, inputRef }: Props) {
 	const handleKeyDown = async (e: KeyboardEvent<HTMLInputElement>) => {
 		switch (e.key) {
 			case "Enter":
-				await handleCommand(command);
+				if (promptState.isWaiting) {
+					await handlePromptResponse(command);
+				} else {
+					await handleCommand(command);
+				}
 				break;
 			case "ArrowUp":
 				e.preventDefault();
@@ -114,7 +177,7 @@ export function Input({ className, inputRef }: Props) {
 			case "L":
 				if (e.ctrlKey) {
 					e.preventDefault();
-					clearHistory();
+					historyStore.clearHistoryBuffer();
 					setCommand("");
 				}
 				break;
@@ -124,18 +187,34 @@ export function Input({ className, inputRef }: Props) {
 	return (
 		<>
 			<div className="flex w-full">
-				<input
-          id="terminal-input"
-	 				ref={inputRef}
-					aria-label="Command input"
-					className={cn("w-full bg-transparent outline-none", className)}
-					placeholder="Type a command..."
-					style={{ color: currentTheme?.foreground }}
-					value={command}
-					onChange={(e) => setCommand(e.target.value)}
-					onKeyDown={handleKeyDown}
-          spellCheck="false"
-				/>
+				{promptStore.isPrompt ? (
+					<input
+						id="terminal-input"
+						ref={inputRef}
+						aria-label="Command input"
+						className={cn("w-full bg-transparent outline-none", className)}
+						style={{ color: currentTheme?.foreground }}
+						value={command}
+						onChange={(e) => setCommand(e.target.value)}
+						onKeyDown={handleKeyDown}
+						spellCheck="false"
+					/>
+				) : (
+					<input
+						id="terminal-input"
+						ref={inputRef}
+						aria-label="Command input"
+						className={cn("w-full bg-transparent outline-none", className)}
+						placeholder={
+							promptState.isWaiting ? promptState.message : "Type a command..."
+						}
+						style={{ color: currentTheme?.foreground }}
+						value={command}
+						onChange={(e) => setCommand(e.target.value)}
+						onKeyDown={handleKeyDown}
+						spellCheck="false"
+					/>
+				)}
 			</div>
 		</>
 	);

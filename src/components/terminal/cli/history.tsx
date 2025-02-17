@@ -1,17 +1,14 @@
-"use client";
-
 import { useHistoryStore } from "../../../stores/useHistoryStore";
 import { useThemeStore } from "../../../stores/useThemeStore";
 import { PS1 } from "./ps1";
 
 export function History() {
-	const { getCurrentColorScheme } = useThemeStore();
-	const currentTheme = getCurrentColorScheme();
-	const { history } = useHistoryStore();
+	const currentTheme = useThemeStore((state) => state.getCurrentColorScheme());
+	const { historyBuffer } = useHistoryStore();
 
 	return (
 		<>
-			{history.map(({ command, outputs }, index) => (
+			{historyBuffer.map(({ command, outputs }, index) => (
 				<div key={index} style={{ color: currentTheme?.foreground }}>
 					{command !== "banner" && (
 						<div className="flex flex-row">

@@ -1,4 +1,6 @@
-import { CommandArgs, CommandUtil } from "../types/command";
+import { HistoryState } from "../stores/useHistoryStore";
+import { ThemeState } from "../stores/useThemeStore";
+import { CommandArgs, CommandUtil, ReturnCommandUtil } from "../types/command";
 
 const hostname = window.location.hostname;
 
@@ -66,7 +68,39 @@ export const commands: Record<string, CommandUtil> = {
 	},
 	clear: {
 		description: "Clear the terminal screen",
-		execute: () => "",
+		execute: ({}, commandArgs) => {
+			const historyUtils = commandArgs?.historyUtils as HistoryState;
+
+			historyUtils.clearHistoryBuffer();
+			return "";
+		},
+	},
+	history: {
+		description: "Display history",
+		execute: (args, commandArgs) => {
+			const historyUtils = commandArgs?.historyUtils as HistoryState;
+
+			if (args[0] === "-c") {
+        return {
+          message: "This action will irreversibly delete your command history. Are you sure? [y/N]",
+          isPrompt: true,
+          onResponse: (response: string) => {
+            if (response.toLowerCase() === 'y') {
+              historyUtils.clearHistory();
+              historyUtils.clearHistoryBuffer();
+              return "History cleared.";
+            }
+            return "Operation cancelled.";
+          }
+        };
+      } else {
+				return historyUtils.history
+					.map((item, index) => {
+						return `${index + 1}\t${item.command}`;
+					})
+					.join("\n");
+			}
+		},
 	},
 	exit: {
 		description: "Exit the terminal",
@@ -88,11 +122,7 @@ export const commands: Record<string, CommandUtil> = {
 				return "Theme system is not available.";
 			}
 
-			const {
-				getColorSchemeNames,
-				getColorSchemeByName,
-				setCurrentColorScheme,
-			} = commandArgs.themeUtils;
+			const themeUtils = commandArgs.themeUtils as ThemeState;
 
 			if (args.length === 0) {
 				return usage;
@@ -100,7 +130,7 @@ export const commands: Record<string, CommandUtil> = {
 
 			switch (args[0]) {
 				case "ls": {
-					let result = getColorSchemeNames().join("\n");
+					let result = themeUtils.getColorSchemeNames().join("\n");
 					// result += `\nYou can preview all these themes here: ${packageJson.repository.url}/tree/main/docs/themes`;
 					return result;
 				}
@@ -110,13 +140,13 @@ export const commands: Record<string, CommandUtil> = {
 					}
 
 					const themeName = args[1];
-					const theme = getColorSchemeByName(themeName);
+					const theme = themeUtils.getColorSchemeByName(themeName);
 
 					if (!theme) {
 						return `Theme '${themeName}' not found. Use 'theme ls' to see available themes.`;
 					}
 
-					setCurrentColorScheme(themeName);
+					themeUtils.setCurrentColorScheme(themeName);
 					return `Theme changed to ${themeName}`;
 				}
 				default: {
@@ -132,12 +162,12 @@ export const executeCommand = (
 	commandName: string,
 	args: string[] = [],
 	commandArgs?: CommandArgs,
-): Promise<string> | string => {
+): ReturnCommandUtil => {
 	const allCommands = { ...specialCommands, ...commands };
 	const command = allCommands[commandName];
 
 	if (!command) {
-		return `CommandUtil not found: ${commandName}. Type 'help' to see available commands.`;
+		return `Command not found: ${commandName}. Type 'help' to see available commands.`;
 	}
 
 	return command.execute(args, commandArgs);

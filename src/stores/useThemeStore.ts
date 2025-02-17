@@ -3,7 +3,7 @@ import { createJSONStorage, persist } from "zustand/middleware";
 import themes from "../../themes.json";
 import { Theme } from "../types/theme";
 
-type ThemeState = {
+export type ThemeState = {
   colorSchemes: Theme[];
   defaultColorScheme: string;
   currentColorScheme: string;

@@ -1,5 +1,3 @@
-"use client";
-
 import { useThemeStore } from "../../../stores/useThemeStore";
 
 function PS1() {
