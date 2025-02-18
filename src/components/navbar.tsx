@@ -8,7 +8,7 @@ export function NavBar() {
 	return (
 		<>
 			<nav
-				className="sticky top-0 z-10 flex items-center justify-center md:justify-between py-2 border-b"
+				className="sticky w-full top-0 z-10 flex items-center justify-center md:justify-between py-2 border-b"
 				style={{ backgroundColor: currentTheme?.background }}
 			>
 				<Logo className="max-md:hidden" />

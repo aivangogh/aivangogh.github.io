@@ -16,7 +16,7 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
 	return (
 		<>
 			<div
-				className="font-mono p-2 border border-muted"
+				className="font-mono p-2 border"
 				style={{ background: currentTheme?.background }}
 			>
 				<div className="grid grid-cols-8 gap-2 items-start justify-between mb-2">
@@ -84,7 +84,7 @@ export function ExperiencesList(props: HTMLAttributes<HTMLDivElement>) {
 
 	return (
 		<>
-			<div className="relative ml-4 pl-2 md:pl-4 border-l border-muted">
+			<div className="relative ml-4 pl-2 md:pl-4 border-l">
 				<div
 					{...props}
 					className={cn("grid grid-cols-1 gap-4", props.className)}

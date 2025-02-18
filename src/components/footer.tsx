@@ -1,31 +1,28 @@
-import { getIconById } from "../utils/utils";
 import { HTMLAttributes } from "react";
 import { cn } from "../lib/utils";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import { useThemeStore } from "../stores/useThemeStore";
 
 export function Footer(props: HTMLAttributes<HTMLDivElement>) {
-	const techStackUsed = ["typescript", "react", "tailwindcss", "zustand"];
-
+	const currentTheme = useThemeStore((state) => state.getCurrentColorScheme());
 	return (
 		<>
-			<footer className={cn("flex flex-col items-center gap-2 max-md:px-4", props.className)}>
-				<p className="text-xs md:text-sm">Tech stack used</p>
-				<div className="flex gap-2">
-					{techStackUsed.map((tech, index) => {
-						const icon = getIconById(tech);
-
-						return (
-							<Tooltip key={index} delayDuration={0}>
-								<TooltipTrigger>
-									<div className="flex items-center">
-										{icon?.icon({ className: "w-4 h-4" })}
-									</div>
-								</TooltipTrigger>
-								<TooltipContent>{icon?.name}</TooltipContent>
-							</Tooltip>
-						);
-					})}
-				</div>
+			<footer
+				className={cn(
+					"flex items-center justify-center md:justify-start px-4",
+					props.className,
+				)}
+			>
+				<p className="text-[10px] md:text-xs w-80 max-md:text-center">
+					This portfolio was created by yours truly, but heavily inspired by{" "}
+					<a
+						className="hover:underline"
+						href="https://mlapada.vercel.app/"
+						target="_blank"
+						style={{ color: currentTheme?.blue }}
+					>
+						Mark Anthony Lapada
+					</a>
+				</p>
 			</footer>
 		</>
 	);
