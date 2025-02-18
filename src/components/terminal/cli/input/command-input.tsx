@@ -63,7 +63,7 @@ export function CommandInput({
 	};
 
 	return (
-		<div className="flex gap-0.5 md:gap-1">
+		<div className="w-full flex flex-row gap-0.5 md:gap-1">
 			<PS1 />
 			<input
 				id="terminal-input"

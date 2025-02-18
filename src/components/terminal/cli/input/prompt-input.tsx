@@ -27,7 +27,7 @@ export function PromptInput({
   };
 
   return (
-    <div className="flex flex-col w-full whitespace-pre-wrap">
+    <div className="w-full flex flex-col whitespace-pre-wrap">
       <InputPrompts />
       <input
         id="prompt-input"

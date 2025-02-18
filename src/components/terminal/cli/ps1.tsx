@@ -4,14 +4,11 @@ export function PS1() {
 	const currentTheme = useThemeStore((state) => state.getTerminalColorScheme());
 
 	return (
-		<h1 className="font-medium flex">
+		<span className="font-medium flex flex-row">
 			<span className="" style={{ color: currentTheme?.yellow }}>
 				ivan
 			</span>
-			<span
-				className=""
-				style={{ color: currentTheme?.foreground }}
-			>
+			<span className="" style={{ color: currentTheme?.foreground }}>
 				@
 			</span>
 			<span
@@ -20,8 +17,7 @@ export function PS1() {
 			>
 				portfolio
 			</span>
-
-			<span style={{ color: currentTheme?.foreground }}>:$</span>
-		</h1>
+			<span className="flex" style={{ color: currentTheme?.foreground }}>:$</span>
+		</span>
 	);
 }
