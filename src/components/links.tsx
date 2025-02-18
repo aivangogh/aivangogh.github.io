@@ -19,22 +19,30 @@ export function Links() {
 			href: "#about",
 		},
 		{
+			id: "experience",
+			name: "experience",
+			href: "#experience",
+		},
+		{
 			id: "projects",
 			name: "projects",
 			href: "#projects",
 		},
 		{
-			id: "tools",
-			name: "tools",
-			href: "#tools",
+			id: "skills",
+			name: "skills",
+			href: "#skills",
 		},
 	] satisfies Links[];
 
 	return (
 		<>
-			<div className="text-sm md:text-md flex gap-2 md:gap-4">
+			<div className="text-sm md:text-md flex gap-0.5 md:gap-4">
 				{links.map((link) => (
-					<div key={link.id} className="group inline-block hover:font-medium cursor-pointer">
+					<div
+						key={link.id}
+						className="group inline-block hover:font-medium cursor-pointer"
+					>
 						<span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
 							/
 						</span>

@@ -8,10 +8,10 @@ export function NavBar() {
 	return (
 		<>
 			<nav
-				className="sticky top-0 z-10 max-md:px-4 flex items-center justify-between py-2 border-b"
+				className="sticky top-0 z-10 flex items-center justify-center md:justify-between py-2 border-b"
 				style={{ backgroundColor: currentTheme?.background }}
 			>
-				<Logo />
+				<Logo className="max-md:hidden" />
 				<Links />
 			</nav>
 		</>

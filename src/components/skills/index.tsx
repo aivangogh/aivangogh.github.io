@@ -23,11 +23,14 @@ function CardTools(props: HTMLAttributes<HTMLDivElement>) {
 	);
 }
 
-export function Tools(props: HTMLAttributes<HTMLDivElement>) {
+export function Skills(props: HTMLAttributes<HTMLDivElement>) {
 	return (
 		<>
-			<div {...props} className={cn("flex flex-col gap-2", props.className)}>
-				<Header header="/tools" />
+			<div {...props} className={cn("flex flex-col gap-6", props.className)}>
+				<div>
+					<Header header="skills.sh" />
+					<p className="leading">Technologies and tools</p>
+				</div>
 				<div className="ml-4">
 					<CardTools className="flex flex-wrap gap-2" />
 				</div>

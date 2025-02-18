@@ -7,6 +7,7 @@ import { Skeleton } from "../ui/skeleton";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import { useGetProjects } from "./fetch-projects";
 import { type Project } from "./types";
+import { useThemeStore } from "../../stores/useThemeStore";
 
 type ProjectCardProps = {
 	project: Project;
@@ -15,7 +16,7 @@ type ProjectCardProps = {
 function ProjectCard({ project }: ProjectCardProps) {
 	return (
 		<>
-			<div className="flex flex-col justify-between gap-1 w-full h-40 w-full max-md:w-72 border-1 p-2">
+			<div className="flex flex-col justify-between gap-1 h-40 w-full max-md:w-72 border-1 p-2">
 				<div className="flex flex-col gap-2">
 					<h3 className="font-medium text-sm">{project.title}</h3>
 					<p className="text-[10px] md:text-xs line-clamp-5">
@@ -69,6 +70,7 @@ function ProjectCard({ project }: ProjectCardProps) {
 }
 
 export function ProjectsList(props: HTMLAttributes<HTMLDivElement>) {
+  const currentTheme = useThemeStore((state) => state.getCurrentColorScheme());
 	const { data: projects, isLoading } = useGetProjects();
 
 	if (isLoading) {
@@ -76,7 +78,7 @@ export function ProjectsList(props: HTMLAttributes<HTMLDivElement>) {
 			<>
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 					{Array.from({ length: 3 }).map((_, index) => (
-						<Skeleton key={index} className="w-full h-36 max-md:w-60 rounded-none" />
+						<Skeleton key={index} className="w-full h-36 max-md:w-60 rounded-none" style={{ background: currentTheme?.foreground }}/>
 					))}
 				</div>
 			</>

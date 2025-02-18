@@ -3,15 +3,25 @@ import { cn } from "../lib/utils";
 
 type HeaderProps = {
 	header: string;
+	cat?: boolean;
 };
 
-export function Header(
-	props: HTMLAttributes<HTMLHeadingElement> & HeaderProps,
-) {
+export function Header({
+	header,
+	cat = false,
+	...props
+}: HeaderProps & HTMLAttributes<HTMLHeadingElement>) {
 	return (
 		<>
-			<h1 {...props} className={cn("text-2xl md:text-3xl font-bold mb-2", props.className)}>
-				{props.header}
+			<h1
+				{...props}
+				className={cn(
+					"text-xl font-medium flex items-center gap-2",
+					props.className,
+				)}
+			>
+				<span>$</span>
+				{`${cat ? "cat" : ""}./${header}`}
 			</h1>
 		</>
 	);

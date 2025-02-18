@@ -21,6 +21,8 @@ export type Icon = {
 	icon: IconType;
 };
 
+export type IconId = typeof icons[number]['id'];
+
 export const icons = [
 	{
 		id: "typescript",
@@ -102,5 +104,5 @@ export const icons = [
 		name: "GitHub",
 		icon: FaGithub,
 	},
-] satisfies Icon[];
+] as const
 

@@ -4,9 +4,10 @@ import { Footer } from "./components/footer";
 import { NavBar } from "./components/navbar";
 import { Projects } from "./components/projects";
 import { Terminal } from "./components/terminal";
-import { Tools } from "./components/tools";
+import { Skills } from "./components/skills";
 import { ContainerLayout } from "./layouts/container";
 import { useThemeStore } from "./stores/useThemeStore";
+import { Experience } from "./components/experience";
 
 function App() {
 	const currentTheme = useThemeStore((state) => state.getCurrentColorScheme());
@@ -34,8 +35,9 @@ function App() {
 
 							<div className="flex flex-col gap-6 mt-10 md:mt-6">
 								<About id="about" />
+                <Experience id="experience" />
 								<Projects id="projects" />
-								<Tools id="tools" />
+								<Skills id="skills" />
 							</div>
 						</div>
 						<Footer className="w-full mt-8 mb-4"/>

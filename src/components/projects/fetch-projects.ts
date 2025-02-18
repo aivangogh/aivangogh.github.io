@@ -18,6 +18,7 @@ export function useGetProjects() {
 				const projects = JSON.parse(data) as Project[];
 				return projects;
 			} catch (error) {
+        console.log(error);
 				throw new Error("Failed to parse projects data");
 			}
 		},

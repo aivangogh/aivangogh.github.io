@@ -6,7 +6,7 @@ export function About(props: HTMLAttributes<HTMLDivElement>) {
 	return (
 		<>
 			<div {...props} className={cn("flex flex-col gap-2", props.className)}>
-				<Header header="/about" />
+				<Header cat header="about.txt" />
 
 				<div className="ml-4 mr-2 text-sm md:text-md space-y-2 text-justify">
 					<p>

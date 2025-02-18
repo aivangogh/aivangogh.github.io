@@ -1,9 +1,11 @@
+import { HTMLAttributes } from "react";
 import { handleSmoothScroll } from "../hooks/useSmoothScroll";
+import { cn } from "../lib/utils";
 
-export function Logo() {
+export function Logo(props: HTMLAttributes<HTMLDivElement>) {
 	return (
 		<>
-			<div>
+			<div {...props} className={cn(props.className)}>
 				<a
 					href="/"
 					className="font-extrabold text:md md:text-lg"
