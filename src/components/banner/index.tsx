@@ -1,5 +1,5 @@
 import { HTMLAttributes } from "react";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaFacebook, FaGithub, FaLinkedin } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import packageJson from "../../../package.json";
 import { cn } from "../../lib/utils";
@@ -34,6 +34,10 @@ export function Banner(props: HTMLAttributes<HTMLDivElement>) {
 						>
 							<FaLinkedin />
 						</a>
+            <a
+              href={packageJson.author.facebook}
+              target="_blank"
+              rel="noreferrer"><FaFacebook /></a>
 					</div>
 				</div>
 			</div>

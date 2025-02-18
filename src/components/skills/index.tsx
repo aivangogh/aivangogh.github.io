@@ -29,7 +29,7 @@ export function Skills(props: HTMLAttributes<HTMLDivElement>) {
 			<div {...props} className={cn("flex flex-col gap-6", props.className)}>
 				<div>
 					<Header header="skills.sh" />
-					<p className="leading">Technologies and tools</p>
+					<p className="max-md:text-xs text-sm">Technologies and tools</p>
 				</div>
 				<div className="ml-4">
 					<CardTools className="flex flex-wrap gap-2" />

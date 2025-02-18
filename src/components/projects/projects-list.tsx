@@ -16,10 +16,10 @@ type ProjectCardProps = {
 function ProjectCard({ project }: ProjectCardProps) {
 	return (
 		<>
-			<div className="flex flex-col justify-between gap-1 h-40 w-full max-md:w-72 border-1 p-2">
+			<div className="flex flex-col justify-between gap-1 h-40 md:h-48 w-full border-1 p-2">
 				<div className="flex flex-col gap-2">
 					<h3 className="font-medium text-sm">{project.title}</h3>
-					<p className="text-[10px] md:text-xs line-clamp-5">
+					<p className="text-xs md:text-sm line-clamp-5">
 						{project.description}
 					</p>
 				</div>
@@ -96,7 +96,7 @@ export function ProjectsList(props: HTMLAttributes<HTMLDivElement>) {
 						<ProjectCard key={index} project={project} />
 					))
 				) : (
-					<p>Oh snap! No projects found. It might some errors</p>
+					<p className="text-sm">Oh snap! No projects found.</p>
 				)}
 			</div>
 		</>
