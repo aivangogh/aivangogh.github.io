@@ -14,7 +14,7 @@ export const executeCommand = (
 	const command = allCommands[commandName];
 
 	if (!command) {
-		return `Command not found: ${commandName}. Type 'help' to see available commands.`;
+		return `command not found: ${commandName}. Type 'help' to see available commands.`;
 	}
 
 	return command.execute(args, commandArgs);

@@ -9,7 +9,7 @@ export function PS1() {
 				ivan
 			</span>
 			<span
-				className="hidden md:inline"
+				className=""
 				style={{ color: currentTheme?.foreground }}
 			>
 				@

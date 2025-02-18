@@ -1,6 +1,7 @@
 import { KeyboardEvent, RefObject } from "react";
 import { cn } from "../../../../lib/utils";
 import { useThemeStore } from "../../../../stores/useThemeStore";
+import { InputPrompts } from "../input-prompts";
 
 type PromptInputProps = {
   className?: string;
@@ -26,16 +27,19 @@ export function PromptInput({
   };
 
   return (
-    <input
-      id="prompt-input"
-      ref={inputRef}
-      aria-label="Prompt input"
-      className={cn("w-full bg-transparent outline-none", className)}
-      style={{ color: themeStore.getTerminalColorScheme()?.foreground }}
-      value={command}
-      onChange={(e) => onCommandChange(e.target.value)}
-      onKeyDown={handleKeyDown}
-      spellCheck="false"
-    />
+    <div className="flex flex-col w-full whitespace-pre-wrap">
+      <InputPrompts />
+      <input
+        id="prompt-input"
+        ref={inputRef}
+        aria-label="Prompt input"
+        className={cn("w-full bg-transparent outline-none", className)}
+        style={{ color: themeStore.getTerminalColorScheme()?.foreground }}
+        value={command}
+        onChange={(e) => onCommandChange(e.target.value)}
+        onKeyDown={handleKeyDown}
+        spellCheck="false"
+      />
+    </div>
   );
 }
