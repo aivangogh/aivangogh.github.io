@@ -8,11 +8,11 @@ export function Footer(props: HTMLAttributes<HTMLDivElement>) {
 		<>
 			<footer
 				className={cn(
-					"flex items-center justify-center md:justify-start px-4",
+					"flex items-center justify-center",
 					props.className,
 				)}
 			>
-				<p className="text-[10px] md:text-xs w-80 max-md:text-center">
+				<p className="text-[10px] md:text-xs w-80 text-center">
 					This portfolio was created by yours truly, but heavily inspired by{" "}
 					<a
 						className="hover:underline"
