@@ -21,7 +21,7 @@ export function Header({
 				)}
 			>
 				<span>$</span>
-				{`${cat ? "cat" : ""} ./${header}`}
+				{`${cat ? "cat " : ""}./${header}`}
 			</h1>
 		</>
 	);
