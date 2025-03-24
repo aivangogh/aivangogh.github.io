@@ -1,17 +1,13 @@
-import { ThemeState } from "../../../stores/useThemeStore";
-import { CommandUtil } from "../../../types/command";
+import { useThemeStore } from "@/stores/useThemeStore";
+import { CommandUtil } from "@/types/command";
 import { setTheme } from "./utils/set-theme";
 
 export const theme: CommandUtil = {
 	description: "Change the terminal theme",
-	execute: (args, commandArgs) => {
+	execute: (args) => {
 		const usage = `Usage: theme [args]\n[args]:\n\tls: list all available themes\n\tset: set theme to [theme] [args: -t, --terminal, -ui, --user-interface]\n[Examples]:\n\ttheme ls\n\ttheme set AyuDark\n\ttheme set AyuDark -ui, theme set AyuDark --user-interface (default)\n\ttheme set AyuDark -t, theme set AyuDark --terminal`;
 
-		if (!commandArgs?.themeUtils) {
-			return "Theme system is not available.";
-		}
-
-		const themeUtils = commandArgs.themeUtils as ThemeState;
+		const themeUtils = useThemeStore.getState();
 
 		if (args.length === 0) {
 			return usage;

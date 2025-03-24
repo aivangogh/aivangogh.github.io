@@ -1,4 +1,4 @@
-import { CommandUtil } from "../../../../types/command";
+import { CommandUtil } from "@/types/command";
 
 export const fun: CommandUtil = {
 	description: "Get a random fun fact or joke",

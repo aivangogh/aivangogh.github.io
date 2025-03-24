@@ -1,8 +1,8 @@
 import { CaretDownIcon, CaretUpIcon } from "@radix-ui/react-icons";
 import { HTMLAttributes } from "react";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
-export function Keys(props: HTMLAttributes<HTMLDivElement>) {
+export function MobileActions(props: HTMLAttributes<HTMLDivElement>) {
 	const dispatchKeyEvent = (key: string) => {
 		const input = document.getElementById("terminal-input");
 		if (input) {

@@ -1,4 +1,4 @@
-import { CommandUtil } from "../../../../types/command";
+import { CommandUtil } from "@/types/command";
 
 export const guess: CommandUtil = {
   description: "Guess a number between 1 and 100",

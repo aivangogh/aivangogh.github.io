@@ -1,7 +1,7 @@
 import { useCLIContext } from "@/contexts/cli";
 import { cn } from "@/lib/utils";
 import { useThemeStore } from "@/stores/useThemeStore";
-import { memo, useEffect, useRef } from "react";
+import { memo, useCallback, useEffect, useRef } from "react";
 import { History } from "./history";
 import { Input } from "./input";
 
@@ -10,45 +10,50 @@ type Props = {
 };
 
 const CLI = memo(({ className }: Props) => {
+	const { setInputRef } = useCLIContext();
 	const currentTheme = useThemeStore((state) => state.getTerminalColorScheme());
-	const inputRef = useRef<HTMLInputElement>(null);
-	const { cliRef } = useCLIContext();
+	const localInputRef = useRef<HTMLInputElement>(null);
 
-	// Focus input only when clicking inside the CLI window
-	const handleClick = (e: MouseEvent) => {
-		if (cliRef.current?.contains(e.target as Node)) {
-			inputRef.current?.focus();
+	// Update context with local ref
+	useEffect(() => {
+		setInputRef(localInputRef);
+	}, [setInputRef]);
+
+	// Focus the input
+	const focusInput = useCallback(() => {
+		if (localInputRef.current) {
+			localInputRef.current.focus();
 		}
-	};
-
-	useEffect(() => {
-		inputRef.current?.focus();
 	}, []);
 
+	// Focus on mount and after re-renders
 	useEffect(() => {
-		document.addEventListener("click", handleClick);
-		return () => {
-			document.removeEventListener("click", handleClick);
-		};
-	}, []);
+		focusInput();
+	}, [focusInput]);
+
+	// Handle clicks to focus the input
+	const handleClick = useCallback(() => {
+		focusInput();
+	}, [focusInput]);
 
 	return (
-		<>
-			<div
-				ref={cliRef}
-				className={cn(
-					"h-full w-full overflow-x-hidden overflow-y-auto px-1.5 py-1 font-medium cursor-text",
-					className,
-				)}
-				style={{ backgroundColor: currentTheme?.background }}
-			>
-				<History />
-				<div className="flex gap-1">
-					<Input inputRef={inputRef} />
-				</div>
+		<div
+			onClick={handleClick}
+			className={cn(
+				"w-full h-full overflow-x-hidden overflow-y-auto px-1.5 py-1 font-medium cursor-text",
+				className,
+			)}
+			style={{ backgroundColor: currentTheme?.background }}
+		>
+			<History />
+			<div className="flex gap-1 w-full">
+				<Input inputRef={localInputRef} />
 			</div>
-		</>
+		</div>
 	);
 });
 
+CLI.displayName = "CLI";
+
 export { CLI };
+

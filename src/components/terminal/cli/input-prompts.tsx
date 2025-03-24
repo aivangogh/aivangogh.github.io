@@ -1,5 +1,5 @@
-import { usePromptStore } from "../../../stores/usePromptStore";
-import { useThemeStore } from "../../../stores/useThemeStore";
+import { usePromptStore } from "@/stores/usePromptStore";
+import { useThemeStore } from "@/stores/useThemeStore";
 
 export function InputPrompts() {
 	const currentTheme = useThemeStore((state) => state.getTerminalColorScheme());

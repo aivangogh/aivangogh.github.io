@@ -1,15 +1,16 @@
 "use client";
 
-import type React from "react";
-
-import { CLIContextProvider, useCLIContext } from "@/contexts/cli";
+import { CLIContextProvider } from "@/contexts/cli";
 import { cn } from "@/lib/utils";
+import { useHistoryStore } from "@/stores/useHistoryStore";
 import { useThemeStore } from "@/stores/useThemeStore";
 import { useToggleTitleBarActionsStore } from "@/stores/useToggleTitleBarActionsStore";
+import { executeCommand } from "@/utils/command";
 import { AnimatePresence, motion } from "framer-motion";
+import type React from "react";
 import { memo, useEffect, useRef, useState } from "react";
 import { CLI } from "./cli";
-import { Keys } from "./keys";
+import { MobileActions } from "./mobile-actions";
 import { TitleBar } from "./title-bar";
 
 type TerminalProps = React.HTMLAttributes<HTMLDivElement>;
@@ -19,14 +20,16 @@ const Terminal = memo(({ className, ...props }: TerminalProps) => {
 	const isFullScreen = useToggleTitleBarActionsStore(
 		(state) => state.isFullScreen,
 	);
+	const terminalDivRef = useRef<HTMLDivElement>(null);
 
 	return (
 		<div
-      {...props}
+			ref={terminalDivRef}
+			{...props}
 			className={cn(
 				"flex flex-col shadow-lg rounded-lg w-full",
 				isFullScreen ? "h-full mx-auto max-w-screen p-4" : "h-full",
-        className,
+				className,
 			)}
 			style={{
 				borderColor: currentTheme?.foreground,
@@ -46,30 +49,44 @@ const Terminal = memo(({ className, ...props }: TerminalProps) => {
 					/>
 				</div>
 				<div className={cn("mt-2", isFullScreen ? "hidden" : "md:hidden")}>
-					<Keys />
+					<MobileActions />
 				</div>
 			</div>
 		</div>
 	);
 });
 
+function executeBanner() {
+	const addHistoryBuffer = useHistoryStore((state) => state.addHistoryBuffer);
+	const hasBannerExecuted = useRef(false);
+
+	useEffect(() => {
+		if (!hasBannerExecuted.current) {
+			const executeBanner = async () => {
+				const output = await executeCommand("banner", []);
+				if (typeof output === "string") {
+					addHistoryBuffer({
+						command: "banner",
+						outputs: [output],
+					});
+				}
+			};
+			executeBanner();
+			hasBannerExecuted.current = true;
+		}
+	}, []);
+}
+
 const TerminalWindow = (props: React.HTMLAttributes<HTMLDivElement>) => {
 	const currentTheme = useThemeStore((state) => state.getTerminalColorScheme());
 	const isFullScreen = useToggleTitleBarActionsStore(
 		(state) => state.isFullScreen,
 	);
-	const { cliRef } = useCLIContext(); 
 	const [terminalRect, setTerminalRect] = useState<DOMRect | null>(null);
 	const terminalRef = useRef<HTMLDivElement>(null);
 
-	// Focus CLI when entering fullscreen
-	useEffect(() => {
-		if (isFullScreen && cliRef.current) {
-			cliRef.current.focus();
-		}
-	}, [isFullScreen]);
+	executeBanner();
 
-	// Capture the position and size of the terminal before going fullscreen
 	useEffect(() => {
 		if (!isFullScreen && terminalRef.current) {
 			const rect = terminalRef.current.getBoundingClientRect();
@@ -77,16 +94,9 @@ const TerminalWindow = (props: React.HTMLAttributes<HTMLDivElement>) => {
 		}
 	}, [isFullScreen]);
 
-	// Performance optimization styles applied inline
-	const performanceStyles = {
-		willChange: "transform",
-		backfaceVisibility: "hidden" as const,
-		transformOrigin: "top left",
-	};
-
 	return (
 		<CLIContextProvider>
-			<div className="w-full h-full">
+			<div className="w-full h-full text-sm">
 				{!isFullScreen && (
 					<div
 						{...props}
@@ -133,7 +143,9 @@ const TerminalWindow = (props: React.HTMLAttributes<HTMLDivElement>) => {
 							}}
 							style={{
 								backgroundColor: currentTheme?.background,
-								...performanceStyles,
+								willChange: "transform",
+								backfaceVisibility: "hidden" as const,
+								transformOrigin: "top left",
 							}}
 						>
 							<Terminal />

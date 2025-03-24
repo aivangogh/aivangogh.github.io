@@ -1,10 +1,10 @@
-import { HistoryState } from "../../../stores/useHistoryStore";
+import { useHistoryStore } from "../../../stores/useHistoryStore";
 import { CommandUtil } from "../../../types/command";
 
 export const history: CommandUtil = {
 	description: "Display history",
-	execute: (args, commandArgs) => {
-		const historyUtils = commandArgs?.historyUtils as HistoryState;
+	execute: (args) => {
+		const historyUtils = useHistoryStore.getState();
 
 		if (args[0] === "-c") {
 			return {

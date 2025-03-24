@@ -1,4 +1,4 @@
-import { CommandUtil } from "../../../types/command";
+import { CommandUtil } from "@/types/command";
 
 export const sudo: CommandUtil = {
   description: "Attempt to run command with root privileges",

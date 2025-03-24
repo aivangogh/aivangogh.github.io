@@ -1,4 +1,4 @@
-import { CommandArgs, ReturnCommandUtil } from "../../types/command";
+import { ReturnCommandUtil } from "../../types/command";
 import { commands } from "./commands";
 import { helpCommand } from "./help";
 import { specialCommands } from "./special-commands";
@@ -9,7 +9,6 @@ export const allCommands = { ...helpCommand, ...specialCommands, ...commands };
 export const executeCommand = (
 	commandName: string,
 	args: string[] = [],
-	commandArgs?: CommandArgs,
 ): ReturnCommandUtil => {
 	const command = allCommands[commandName];
 
@@ -17,7 +16,7 @@ export const executeCommand = (
 		return `command not found: ${commandName}. Type 'help' to see available commands.`;
 	}
 
-	return command.execute(args, commandArgs);
+	return command.execute(args);
 };
 
 

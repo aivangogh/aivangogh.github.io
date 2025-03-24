@@ -1,7 +1,7 @@
 import { KeyboardEvent, RefObject } from "react";
-import { cn } from "../../../../lib/utils";
-import { useThemeStore } from "../../../../stores/useThemeStore";
-import { InputPrompts } from "../input-prompts";
+import { cn } from "@/lib/utils";
+import { useThemeStore } from "@/stores/useThemeStore";
+import { InputPrompts } from "@/components/terminal/cli/input-prompts";
 
 type PromptInputProps = {
   className?: string;
@@ -18,6 +18,7 @@ export function PromptInput({
   onCommandChange,
   onPromptResponse,
 }: PromptInputProps) {
+  console.log("inputRef:", inputRef.current)
   const themeStore = useThemeStore();
 
   const handleKeyDown = async (e: KeyboardEvent<HTMLInputElement>) => {

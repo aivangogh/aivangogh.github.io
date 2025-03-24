@@ -1,4 +1,4 @@
-import { CommandUtil } from "../../../types/command";
+import { CommandUtil } from "@/types/command";
 
 export const date: CommandUtil = {
 	description: "Show current date and time",

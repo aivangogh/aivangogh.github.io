@@ -1,15 +1,11 @@
-import { memo, RefObject, useEffect, useState, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { useHistoryStore } from "@/stores/useHistoryStore";
 import { usePromptStore } from "@/stores/usePromptStore";
-import { useThemeStore } from "@/stores/useThemeStore";
+import { useCLIContext } from "@/contexts/cli";
 import { executeCommand } from "@/utils/command";
+import { memo, RefObject, useEffect, useState } from "react";
 import { CommandInput } from "./input/command-input";
 import { PromptInput } from "./input/prompt-input";
-
-// This keeps track of whether the banner has been executed globally
-// to prevent it from running multiple times across re-renders or remounts
-const bannerHasExecuted = { value: false };
 
 type Props = {
   className?: string;
@@ -17,43 +13,11 @@ type Props = {
 };
 
 const Input = memo(({ className, inputRef }: Props) => {
+  const { command, setCommand } = useCLIContext();
   const historyStore = useHistoryStore();
-  const themeStore = useThemeStore();
   const promptStore = usePromptStore();
-  
-  const [historyIndex, setHistoryIndex] = useState(-1);
-  const [command, setCommand] = useState<string>("");
-  
-  // Use a ref to track mount state
-  const isMounted = useRef(true);
 
-  // Execute banner only once on initial mount using IIFE
-  useEffect(() => {
-    // One-time banner execution
-    (async () => {
-      if (bannerHasExecuted.value) return;
-      
-      bannerHasExecuted.value = true;
-      
-      const output = await executeCommand("banner", [], {
-        themeUtils: themeStore,
-        historyUtils: historyStore,
-      });
-      
-      // Check if still mounted before updating state
-      if (isMounted.current && typeof output === "string") {
-        historyStore.addHistoryBuffer({
-          command: "banner",
-          outputs: [output],
-        });
-      }
-    })();
-    
-    // Cleanup function
-    return () => {
-      isMounted.current = false;
-    };
-  }, []);
+  const [historyIndex, setHistoryIndex] = useState(-1);
 
   const handleKeyboardShortcuts = (e: KeyboardEvent) => {
     if (e.ctrlKey && e.key === "c") {
@@ -76,12 +40,8 @@ const Input = memo(({ className, inputRef }: Props) => {
   }, [promptStore.isPrompt, promptStore.prompt.command]);
 
   useEffect(() => {
-    inputRef.current?.focus();
-  }, [command]);
-
-  useEffect(() => {
     inputRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  }, [command]);
+  }, [command, inputRef]);
 
   const handleCommand = async (commandStr: string) => {
     const trimmedCommand = commandStr.trim();
@@ -89,10 +49,7 @@ const Input = memo(({ className, inputRef }: Props) => {
     historyStore.addHistoryBuffer(initialHistoryItem);
 
     const [commandName, ...args] = trimmedCommand.split(" ");
-    const result = await executeCommand(commandName, args, {
-      themeUtils: themeStore,
-      historyUtils: historyStore,
-    });
+    const result = await executeCommand(commandName, args);
 
     if (typeof result === "string") {
       historyStore.updateLastHistoryItem({

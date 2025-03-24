@@ -1,4 +1,4 @@
-import { CommandUtil } from "../../../../types/command";
+import { CommandUtil } from "@/types/command";
 
 export const neofetch: CommandUtil = {
   description: "Display system information about Ivan",

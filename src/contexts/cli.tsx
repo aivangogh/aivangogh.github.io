@@ -1,11 +1,17 @@
-import { createContext, ReactNode, useContext, useRef } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 
 export type CLIContextType = {
-  cliRef: React.RefObject<HTMLDivElement>;
+  inputRef: React.RefObject<HTMLInputElement>;
+  command: string;
+  setCommand: (value: string) => void;
+  setInputRef: (ref: React.RefObject<HTMLInputElement>) => void;
 };
 
 export const CLIContext = createContext<CLIContextType>({
-  cliRef: useRef<HTMLDivElement>(null),
+  inputRef: { current: null },
+  command: "",
+  setCommand: () => {},
+  setInputRef: () => {},
 });
 
 type CLIProviderProps = {
@@ -13,13 +19,22 @@ type CLIProviderProps = {
 };
 
 export const CLIContextProvider = ({ children }: CLIProviderProps) => {
-  const cliRef = useRef<HTMLDivElement>(null);
+  const [inputRef, setInputRef] = useState<React.RefObject<HTMLInputElement>>({ current: null });
+  const [command, setCommand] = useState<string>("");
 
   return (
-    <CLIContext.Provider value={{ cliRef }}>{children}</CLIContext.Provider>
+    <CLIContext.Provider value={{ inputRef, command, setCommand, setInputRef }}>
+      {children}
+    </CLIContext.Provider>
   );
 };
 
 export const useCLIContext = () => {
-  return useContext(CLIContext);
+  const context = useContext(CLIContext);
+
+  if (!context) {
+    throw new Error("useCLIContext must be used within a CLIContextProvider");
+  }
+
+  return context;
 };

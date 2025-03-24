@@ -1,4 +1,4 @@
-import { CommandUtil } from "../../../types/command";
+import { CommandUtil } from "@/types/command";
 
 export const exit: CommandUtil = {
 	description: "Exit the terminal",

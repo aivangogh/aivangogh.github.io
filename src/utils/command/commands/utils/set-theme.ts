@@ -1,4 +1,4 @@
-import { ThemeState } from "../../../../stores/useThemeStore";
+import { ThemeState } from "@/stores/useThemeStore";
 
 type CurrentColorScheme = Pick<
 	ThemeState,
