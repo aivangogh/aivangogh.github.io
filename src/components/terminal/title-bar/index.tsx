@@ -1,28 +1,8 @@
 import { HTMLAttributes } from "react";
-import { cn } from "../../lib/utils";
-import { useThemeStore } from "../../stores/useThemeStore";
-
-function Actions() {
-	const currentTheme = useThemeStore((state) => state.getTerminalColorScheme());
-	return (
-		<>
-			<div className="flex items-center gap-1.5 md:gap-2">
-				<div
-					className="h-2 md:h-3 w-2 md:w-3 rounded-full"
-					style={{ backgroundColor: currentTheme?.red }}
-				></div>
-				<div
-					className="h-2 md:h-3 w-2 md:w-3 rounded-full"
-					style={{ backgroundColor: currentTheme?.yellow }}
-				></div>
-				<div
-					className="h-2 md:h-3 w-2 md:w-3 rounded-full"
-					style={{ backgroundColor: currentTheme?.green }}
-				></div>
-			</div>
-		</>
-	);
-}
+import { cn } from "@/lib/utils";
+import { useThemeStore } from "@/stores/useThemeStore";
+import { Buttons } from "./buttons";
+import { Actions } from "./actions";
 
 function Title() {
 	const currentTheme = useThemeStore((state) => state.getTerminalColorScheme());
@@ -57,9 +37,9 @@ function TitleBar(props: HTMLAttributes<HTMLDivElement>) {
 					backgroundColor: currentTheme?.background,
 				}}
 			>
-				<Actions />
+        <Buttons />
 				<Title />
-				<div className="w-12" />
+        <Actions />
 			</div>
 		</>
 	);

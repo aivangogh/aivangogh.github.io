@@ -1,8 +1,8 @@
 import { KeyboardEvent, RefObject } from "react";
-import { cn } from "../../../../lib/utils";
-import { useThemeStore } from "../../../../stores/useThemeStore";
-import { allCommands } from "../../../../utils/command";
-import { PS1 } from "../ps1";
+import { cn } from "@/lib/utils";
+import { useThemeStore } from "@/stores/useThemeStore";
+import { allCommands } from "@/utils/command";
+import { PS1 } from "@/components/terminal/cli/ps1";
 
 type CommandInputProps = {
 	className?: string;
@@ -55,7 +55,6 @@ export function CommandInput({
 			case "L":
 				if (e.ctrlKey) {
 					e.preventDefault();
-					// You might want to lift this to the parent component
 					onCommandChange("");
 				}
 				break;

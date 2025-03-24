@@ -3,7 +3,7 @@ import { Banner } from "./components/banner";
 import { Footer } from "./components/footer";
 import { NavBar } from "./components/navbar";
 import { Projects } from "./components/projects";
-import { Terminal } from "./components/terminal";
+import { TerminalWindow } from "./components/terminal";
 import { Skills } from "./components/skills";
 import { ContainerLayout } from "./layouts/container";
 import { useThemeStore } from "./stores/useThemeStore";
@@ -15,7 +15,7 @@ function App() {
 	return (
 		<>
 			<div
-        className="transition-all duration-300"
+        className="relative transition-all duration-300"
 				style={{
 					color: currentTheme?.foreground,
 					backgroundColor: currentTheme?.background,
@@ -27,9 +27,9 @@ function App() {
 						<div className="max-md:px-4 flex flex-col gap-8">
 							<Banner id="/" className="mx-auto mt-4" />
 							<div className="flex items-center justify-center my-8 md:my-10">
-								<Terminal
+								<TerminalWindow
 									id="terminal"
-									className="aspect-video w-full sm:w-10/12 md:w-11/12 font-thin text-[10px] sm:text-xs md:text-sm"
+									className="font-thin text-[10px] sm:text-xs md:text-sm"
 								/>
 							</div>
 

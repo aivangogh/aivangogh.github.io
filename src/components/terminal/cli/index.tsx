@@ -1,17 +1,18 @@
-import { RefObject, useEffect, useRef } from "react";
-import { cn } from "../../../lib/utils";
-import { useThemeStore } from "../../../stores/useThemeStore";
+import { useCLIContext } from "@/contexts/cli";
+import { cn } from "@/lib/utils";
+import { useThemeStore } from "@/stores/useThemeStore";
+import { memo, useEffect, useRef } from "react";
 import { History } from "./history";
 import { Input } from "./input";
 
 type Props = {
 	className?: string;
-	cliRef: RefObject<HTMLDivElement>;
 };
 
-function CLI({ className, cliRef }: Props) {
+const CLI = memo(({ className }: Props) => {
 	const currentTheme = useThemeStore((state) => state.getTerminalColorScheme());
 	const inputRef = useRef<HTMLInputElement>(null);
+	const { cliRef } = useCLIContext();
 
 	// Focus input only when clicking inside the CLI window
 	const handleClick = (e: MouseEvent) => {
@@ -48,6 +49,6 @@ function CLI({ className, cliRef }: Props) {
 			</div>
 		</>
 	);
-}
+});
 
 export { CLI };

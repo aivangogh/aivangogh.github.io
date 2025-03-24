@@ -19,7 +19,7 @@ export type ThemeState = {
 	resetColorScheme: () => void;
 };
 
-const DEFAULT_THEME = "AyuLight";
+const DEFAULT_THEME = "AyuDark";
 
 const useThemeStore = create<ThemeState>()(
 	persist(

@@ -1,44 +1,25 @@
-import { createContext, ReactNode, useContext } from "react";
-import { Theme } from "../types/theme";
-
-type ColorScheme = {
-  name: string;
-} & Theme;
+import { createContext, ReactNode, useContext, useRef } from "react";
 
 export type CLIContextType = {
-  command: string;
-  setCommand: (command: string) => void;
-  colorScheme: ColorScheme;
-  setColorScheme: (scheme: ColorScheme) => void;
-  history: string[];
+  cliRef: React.RefObject<HTMLDivElement>;
 };
 
 export const CLIContext = createContext<CLIContextType>({
-  command: "",
-  setCommand: () => { },
-  colorScheme: {} as ColorScheme,
-  setColorScheme: () => {},
-  history: [],
+  cliRef: useRef<HTMLDivElement>(null),
 });
 
 type CLIProviderProps = {
   children: ReactNode;
 };
 
-export const CLIContractProvider = ({ children }: CLIProviderProps) => {
-  const contextValue = {
-    command: "",
-    setCommand: () => { },
-    colorScheme: {} as ColorScheme,
-    setColorScheme: () => { },
-    history: [],
-  };
+export const CLIContextProvider = ({ children }: CLIProviderProps) => {
+  const cliRef = useRef<HTMLDivElement>(null);
 
   return (
-    <CLIContext.Provider value={contextValue}>{children}</CLIContext.Provider>
+    <CLIContext.Provider value={{ cliRef }}>{children}</CLIContext.Provider>
   );
 };
 
-export const useCLIContract = () => {
+export const useCLIContext = () => {
   return useContext(CLIContext);
 };
