@@ -7,4 +7,7 @@ export type Experience = {
 	period: string;
 	description: string[];
 	techStack: TechStack[];
+	repo?: string;
+	link?: string;
+  imageLink?: string;
 };

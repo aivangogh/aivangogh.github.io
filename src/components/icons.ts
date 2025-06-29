@@ -1,8 +1,9 @@
 import { IconType } from "react-icons";
 import { BiLogoPostgresql } from "react-icons/bi";
-import { FaGitAlt, FaGithub, FaNodeJs, FaReact } from "react-icons/fa";
+import { FaGitAlt, FaGithub, FaNodeJs, FaReact, FaDocker, FaPhp } from "react-icons/fa";
 import { GiBearFace } from "react-icons/gi";
-import { RiNextjsFill } from "react-icons/ri";
+import { RiNextjsFill, RiSupabaseFill, RiFirebaseFill } from "react-icons/ri";
+import { SiLua, SiGnubash } from "react-icons/si";
 import {
   SiDrizzle,
   SiExpress,
@@ -34,6 +35,21 @@ export const icons = [
 		name: "JavaScript",
 		icon: SiJavascript,
 	},
+  {
+    id: "php",
+    name: "PHP",
+    icon: FaPhp,
+  },
+  {
+    id: "lua",
+    name: "Lua",
+    icon: SiLua,
+  },
+  {
+    id: "gnubash",
+    name: "GNU Bash",
+    icon: SiGnubash,
+  },
 	{
 		id: "react",
 		name: "React",
@@ -104,5 +120,20 @@ export const icons = [
 		name: "GitHub",
 		icon: FaGithub,
 	},
+  {
+    id: "supabase",
+    name: "Supabase",
+    icon: RiSupabaseFill,
+  },
+  {
+    id: "firebase",
+    name: "Firebase",
+    icon: RiFirebaseFill,
+  },
+  {
+    id: "docker",
+    name: "Docker",
+    icon: FaDocker,
+  }
 ] as const
 

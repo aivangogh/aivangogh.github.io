@@ -7,4 +7,5 @@ export type Project = {
 	techStack: TechStack[];
 	repo?: string;
 	link?: string;
+  imageLink?: string;
 };

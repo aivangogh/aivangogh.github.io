@@ -1,4 +1,6 @@
 import { HTMLAttributes } from "react";
+import { FaGithub, FaImage } from "react-icons/fa";
+import { IoMdLink } from "react-icons/io";
 import { cn } from "../../lib/utils";
 import { useThemeStore } from "../../stores/useThemeStore";
 import { getIconById } from "../../utils/utils";
@@ -42,20 +44,59 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
 						</div>
 					))}
 				</div>
-				<div className="flex flex-wrap gap-2">
-					{experience.techStack.map((id, index) => {
-						const icon = getIconById(id);
-						return (
-							<Tooltip key={index} delayDuration={0}>
-								<TooltipTrigger>
-									<div className="flex items-center gap-1">
-										{icon?.icon({ className: "w-4 h-4" })}
-									</div>
-								</TooltipTrigger>
-								<TooltipContent>{icon?.name}</TooltipContent>
-							</Tooltip>
-						);
-					})}
+				<div className="flex flex-row items-center justify-between gap-2">
+					<div className="flex flex-wrap gap-2">
+						{experience.techStack.map((id, index) => {
+							const icon = getIconById(id);
+							return (
+								<Tooltip key={index} delayDuration={0}>
+									<TooltipTrigger>
+										<div className="flex items-center gap-1">
+											{icon?.icon({ className: "w-4 h-4" })}
+										</div>
+									</TooltipTrigger>
+									<TooltipContent>{icon?.name}</TooltipContent>
+								</Tooltip>
+							);
+						})}
+					</div>
+					<div className="flex items-center gap-2">
+						{experience.repo && (
+							<a
+								type="button"
+								href={experience.repo}
+								className="flex items-center text-xs md:text-sm rounded border p-1"
+								target="_blank"
+								rel="noreferrer"
+							>
+								<FaGithub />
+							</a>
+						)}
+						{experience.link && (
+							<a
+								type="button"
+								href={experience.link}
+								className="flex items-center text-xs md:text-sm rounded border p-1"
+								target="_blank"
+								rel="noreferrer"
+							>
+								<IoMdLink />
+							</a>
+						)}
+            {
+              experience.imageLink && (
+                <a
+                  type="button"
+                  href={experience.imageLink}
+                  className="flex items-center text-xs md:text-sm rounded border p-1"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FaImage />
+                </a>
+              )
+            }
+					</div>
 				</div>
 			</div>
 		</>

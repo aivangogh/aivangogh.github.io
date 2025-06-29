@@ -1,5 +1,5 @@
 import { HTMLAttributes } from "react";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaImage } from "react-icons/fa";
 import { IoMdLink } from "react-icons/io";
 import { cn } from "../../lib/utils";
 import { getIconById } from "../../utils/utils";
@@ -62,6 +62,19 @@ function ProjectCard({ project }: ProjectCardProps) {
 								<IoMdLink />
 							</a>
 						)}
+            {
+              project.imageLink && (
+                <a
+                  type="button"
+                  href={project.imageLink}
+                  className="flex items-center text-xs md:text-sm rounded border p-1"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FaImage />
+                </a>
+              )
+            }
 					</div>
 				</div>
 			</div>

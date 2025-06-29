@@ -10,7 +10,7 @@ export function About(props: HTMLAttributes<HTMLDivElement>) {
 
 				<div className="ml-4 mr-2 text-sm md:text-md space-y-2 text-justify">
 					<p>
-						Hello! I’m Ivan P. Gemota, a dedicated full-stack developer with a
+						Hello! I’m Ivan P. Gemota, a dedicated web developer with a
 						passion for crafting innovative and impactful digital solutions.
 						With a solid foundation in web development, I bring expertise in a
 						diverse array of programming languages and frameworks, enabling me
@@ -19,11 +19,8 @@ export function About(props: HTMLAttributes<HTMLDivElement>) {
 					<p>
 						I thrive on continuous learning and am always exploring emerging
 						technologies and best practices to refine my skills and stay ahead
-						in the ever-evolving tech landscape. If you’re looking to
-						collaborate or discuss potential opportunities, I’d love to connect!
-						Feel free to reach out via email or LinkedIn—I look forward to
-						hearing from you!
-					</p>
+						in the ever-evolving tech landscape.
+          </p>
 				</div>
 			</div>
 		</>
